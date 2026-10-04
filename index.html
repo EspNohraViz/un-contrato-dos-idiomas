@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Un contrato, dos idiomas: SOAP y REST con MVC</title>
+<title>Servicios Web SOAP y REST en Arquitecturas MVC</title>
 <meta name="author" content="Nohra María Vizcaíno Florez">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,15 +27,16 @@ body{overflow:hidden}
 .slide.active{display:flex}
 .topbar{position:absolute;top:0;left:0;right:0;height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 72px;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line)}
 .topbar b{color:var(--ink);font-weight:600}
+.interactive-badge{background:var(--seal-bg);color:var(--seal);padding:2px 8px;border-radius:4px;font-weight:700;font-size:12px;border:1px solid var(--seal);margin-left:8px;display:inline-flex;align-items:center;gap:4px}
 h1,h2,h3{font-family:var(--serif);font-weight:700;margin:0;letter-spacing:-.01em}
-h2{font-size:40px;line-height:1.15;margin:8px 0 18px}
-h3{font-size:22px;margin:0 0 8px}
-p{margin:0 0 12px;font-size:20px;line-height:1.45}
-.lead{font-size:23px;line-height:1.45;max-width:62ch}
-.small{font-size:16px;color:var(--muted)}
-.cite{font-size:14px;color:var(--muted);margin-top:auto;padding-top:10px}
+h2{font-size:38px;line-height:1.15;margin:8px 0 16px}
+h3{font-size:21px;margin:0 0 8px}
+p{margin:0 0 12px;font-size:19px;line-height:1.45}
+.lead{font-size:22px;line-height:1.45;max-width:64ch}
+.small{font-size:15px;color:var(--muted)}
+.cite{font-size:13px;color:var(--muted);margin-top:auto;padding-top:8px}
 code,.mono{font-family:var(--mono);font-size:.88em}
-pre{font-family:var(--mono);font-size:14px;line-height:1.5;margin:0;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:auto;white-space:pre}
+pre{font-family:var(--mono);font-size:13px;line-height:1.45;margin:0;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:auto;max-height:360px;white-space:pre}
 .soap{color:var(--soap)} .rest{color:var(--rest)} .seal{color:var(--seal)} .err{color:var(--err)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -45,39 +46,39 @@ pre{font-family:var(--mono);font-size:14px;line-height:1.5;margin:0;padding:14px
 .box.restb{border-color:var(--rest);background:var(--rest-bg)}
 .box.sealb{border-color:var(--seal);background:var(--seal-bg)}
 .box p{font-size:18px}
-ul.clean{margin:0;padding-left:20px} ul.clean li{font-size:19px;line-height:1.45;margin-bottom:6px}
-button{font-family:var(--sans);font-size:16px;font-weight:600;cursor:pointer;border-radius:5px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);padding:8px 14px}
-button:hover{background:var(--paper2)}
+ul.clean{margin:0;padding-left:20px} ul.clean li{font-size:18px;line-height:1.45;margin-bottom:6px}
+button{font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;border-radius:5px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);padding:8px 14px;transition:background .2s, transform .1s}
+button:hover{background:var(--paper2);transform:translateY(-1px)}
 button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--seal);outline-offset:2px}
 button.on{background:var(--ink);color:#fff}
 button.m-get{border-color:var(--rest)} button.m-post{border-color:#6B4FA0} button.m-put{border-color:var(--soap)} button.m-patch{border-color:var(--seal)} button.m-delete{border-color:var(--err)}
 .tag{display:inline-block;font-size:13px;font-weight:700;padding:2px 8px;border-radius:3px;border:1px solid currentColor}
-.hint{font-size:15px;color:var(--muted);font-style:italic}
+.hint{font-size:14px;color:var(--seal);font-weight:600;display:flex;align-items:center;gap:6px}
 input[type=range]{accent-color:var(--rest)}
 select,input,textarea{font-family:var(--mono);font-size:14px;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:#fff;color:var(--ink)}
 /* nav */
-#nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;z-index:10;background:rgba(26,35,48,.85);padding:6px 10px;border-radius:8px}
-#nav button{background:transparent;color:#fff;border-color:#7d8a9c;padding:6px 12px;font-size:15px}
+#nav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;z-index:10;background:rgba(26,35,48,.92);padding:6px 14px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+#nav button{background:transparent;color:#fff;border-color:#7d8a9c;padding:6px 12px;font-size:14px}
 #nav button:hover{background:#3a4658}
 #count{color:#dfe5ee;font-size:14px;min-width:70px;text-align:center}
 #progress{position:absolute;left:0;right:0;bottom:0;height:5px;display:flex;gap:3px;padding:0}
 #progress span{flex:1;background:var(--paper2);position:relative}
 #progress span i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0);transition:transform .3s}
-#index{position:fixed;inset:0;background:rgba(20,26,36,.92);z-index:20;display:none;overflow:auto;padding:40px}
+#index{position:fixed;inset:0;background:rgba(20,26,36,.94);z-index:20;display:none;overflow:auto;padding:40px}
 #index.open{display:block}
-#index ol{max-width:900px;margin:0 auto;columns:2;column-gap:40px;color:#fff;font-size:17px}
+#index ol{max-width:900px;margin:0 auto;columns:2;column-gap:40px;color:#fff;font-size:16px}
 #index li{margin:0 0 8px;break-inside:avoid}
 #index a{color:#fff;text-decoration:none} #index a:hover{text-decoration:underline}
-#index h2{color:#fff;text-align:center;font-size:30px}
+#index h2{color:#fff;text-align:center;font-size:28px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
-/* print: una diapositiva por página */
+/* print */
 @media print{
   @page{size:1280px 720px;margin:0}
   html,body{background:#fff;overflow:visible;height:auto}
   #viewport{position:static;display:block}
   #stage{transform:none!important;box-shadow:none;height:auto;overflow:visible;background:none}
   .slide{display:flex!important;position:relative;width:1280px;height:720px;page-break-after:always;break-after:page;background:var(--paper);overflow:hidden}
-  #nav,#index,.noprint{display:none!important}
+  #nav,#index,.noprint,.interactive-badge,.hint{display:none!important}
 }
 </style>
 </head>
@@ -87,7 +88,7 @@ select,input,textarea{font-family:var(--mono);font-size:14px;padding:7px 9px;bor
 <section class="slide" data-block="0" data-title="Portada" id="s-portada" style="padding:0">
   <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr">
     <div style="background:var(--soap-bg);padding:56px 40px 0 60px;overflow:hidden">
-      <pre aria-hidden="true" style="background:transparent;border:0;color:var(--soap);opacity:.8;font-size:15px">&lt;soap:Envelope&gt;
+      <pre aria-hidden="true" style="background:transparent;border:0;color:var(--soap);opacity:.8;font-size:14px">&lt;soap:Envelope&gt;
   &lt;soap:Header&gt;
     &lt;wsse:Security&gt;…&lt;/wsse:Security&gt;
   &lt;/soap:Header&gt;
@@ -102,7 +103,7 @@ select,input,textarea{font-family:var(--mono);font-size:14px;padding:7px 9px;bor
 &lt;/soap:Envelope&gt;</pre>
     </div>
     <div style="background:var(--rest-bg);padding:56px 40px 0 60px;overflow:hidden">
-      <pre aria-hidden="true" style="background:transparent;border:0;color:var(--rest);opacity:.85;font-size:15px">POST /v1/citas HTTP/1.1
+      <pre aria-hidden="true" style="background:transparent;border:0;color:var(--rest);opacity:.85;font-size:14px">POST /v1/citas HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGci…
 
@@ -114,86 +115,96 @@ Authorization: Bearer eyJhbGci…
 }</pre>
     </div>
   </div>
-  <div style="position:absolute;left:50%;top:372px;transform:translateX(-50%);width:780px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:28px 48px;box-shadow:0 18px 50px rgba(26,35,48,.18);text-align:center">
-    <h1 style="font-size:52px;line-height:1.08"><span class="soap">Un contrato,</span> <span class="rest">dos idiomas</span></h1>
-    <p style="font-family:var(--serif);font-size:26px;margin:14px 0 22px">SOAP y REST con MVC</p>
-    <p class="small" style="margin:0;color:var(--ink)">La misma cita de AgendaYa, escrita en XML para SOAP y en JSON para REST.</p>
+  <div style="position:absolute;left:50%;top:360px;transform:translateX(-50%);width:840px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:26px 44px;box-shadow:0 18px 50px rgba(26,35,48,.18);text-align:center">
+    <h1 style="font-size:42px;line-height:1.15"><span class="soap">Servicios Web SOAP y REST</span> <br><span class="rest">en Arquitecturas MVC</span></h1>
+    <p style="font-family:var(--serif);font-size:22px;margin:12px 0 16px;color:var(--muted)">Análisis técnico, patrones de implementación y criterios de selección</p>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:var(--seal-bg);padding:6px 16px;border-radius:20px;border:1px solid var(--seal);font-size:14px;color:var(--seal);font-weight:600">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+      Presentación interactiva: Contiene simuladores y diagramas explorables
+    </div>
   </div>
-  <div style="position:absolute;left:0;right:0;bottom:0;padding:22px 60px;background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:flex-end;font-size:16px;line-height:1.45">
+  <div style="position:absolute;left:0;right:0;bottom:0;padding:20px 60px;background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:flex-end;font-size:15px;line-height:1.45">
     <div><b>Nohra María Vizcaíno Florez</b><br>Especialización en Desarrollo de Software<br>Desarrollo de Aplicaciones Web, NRC 70436</div>
     <div style="text-align:right">Docente: Elkin Darío González Martínez<br>Corporación Universitaria Minuto de Dios, UNIMINUTO<br>Octubre de 2026</div>
   </div>
 </section>
 
 <!-- 1 DETRÁS DE UN CLIC -->
-<section class="slide" data-block="1" data-title="Detrás de un clic">
-  <h2>Detrás de un clic</h2>
+<section class="slide" data-block="1" data-title="Trazabilidad de una petición">
+  <h2>Trazabilidad de una petición en arquitectura multicapa</h2>
   <div style="display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:start">
-    <div style="width:220px;height:400px;border:3px solid var(--ink);border-radius:28px;background:#fff;padding:28px 16px;display:flex;flex-direction:column;gap:10px">
+    <div style="width:220px;height:390px;border:3px solid var(--ink);border-radius:28px;background:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:10px">
       <div style="font-family:var(--serif);font-weight:700;font-size:20px">AgendaYa</div>
       <div class="small" style="color:var(--ink)">Corte de cabello<br>Jueves 15 de octubre, 10:30</div>
       <div style="height:1px;background:var(--line)"></div>
-      <div id="clic-estado" class="small" style="min-height:60px">Toca el botón para ver qué pasa por dentro.</div>
+      <div id="clic-estado" class="small" style="min-height:60px">Presione el botón para simular la ejecución en backend.</div>
       <button id="clic-btn" style="margin-top:auto;background:var(--rest);color:#fff;border-color:var(--rest)">Reservar cita</button>
     </div>
     <div>
-      <svg viewBox="0 0 860 300" width="860" height="300" role="img" aria-label="Recorrido de la petición de reserva por los componentes de AgendaYa">
+      <div class="hint" style="margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Haga clic en "Reservar cita" para ejecutar la simulación del flujo entre microservicios:
+      </div>
+      <svg viewBox="0 0 860 280" width="860" height="280" role="img" aria-label="Recorrido de la petición de reserva por los componentes de AgendaYa">
         <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5A6676"/></marker></defs>
         <g font-family="Source Sans 3, Arial" font-size="15" text-anchor="middle">
-          <g class="cnode" id="cn0"><rect x="10" y="110" width="140" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="80" y="140">Dispositivo móvil</text><text x="80" y="160">del cliente</text></g>
-          <g class="cnode" id="cn1"><rect x="190" y="110" width="140" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="260" y="140">API Gateway</text><text x="260" y="160">(NGINX)</text></g>
-          <g class="cnode" id="cn2"><rect x="370" y="20" width="160" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="450" y="50">Servicio de</text><text x="450" y="70">Autenticación</text></g>
-          <g class="cnode" id="cn3"><rect x="370" y="200" width="160" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="450" y="230">Servicio de</text><text x="450" y="250">Reservas</text></g>
-          <g class="cnode" id="cn4"><rect x="580" y="200" width="130" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="645" y="240">PostgreSQL</text></g>
-          <g class="cnode" id="cn5"><rect x="730" y="110" width="120" height="70" rx="6" fill="#fff" stroke="#A87C12" stroke-dasharray="5 4"/><text x="790" y="140">Respuesta</text><text x="790" y="160">201 Created</text></g>
+          <g class="cnode" id="cn0"><rect x="10" y="100" width="140" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="80" y="130">Cliente Móvil</text><text x="80" y="150">(HTTP Client)</text></g>
+          <g class="cnode" id="cn1"><rect x="190" y="100" width="140" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="260" y="130">API Gateway</text><text x="260" y="150">(NGINX Proxy)</text></g>
+          <g class="cnode" id="cn2"><rect x="370" y="15" width="160" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="450" y="45">Servicio Auth</text><text x="450" y="65">(Validación Token)</text></g>
+          <g class="cnode" id="cn3"><rect x="370" y="190" width="160" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="450" y="220">Servicio Citas</text><text x="450" y="240">(Lógica Negocio)</text></g>
+          <g class="cnode" id="cn4"><rect x="580" y="190" width="130" height="70" rx="6" fill="#fff" stroke="#1A2330"/><text x="645" y="230">PostgreSQL DB</text></g>
+          <g class="cnode" id="cn5"><rect x="730" y="100" width="120" height="70" rx="6" fill="#fff" stroke="#A87C12" stroke-dasharray="5 4"/><text x="790" y="130">Respuesta</text><text x="790" y="150">HTTP 201</text></g>
         </g>
         <g stroke="#5A6676" stroke-width="1.6" fill="none" marker-end="url(#ah)">
-          <path d="M150 145 H185"/><path d="M330 135 L367 70"/><path d="M330 155 L367 225"/><path d="M530 235 H575"/><path d="M710 225 L727 170"/>
+          <path d="M150 135 H185"/><path d="M330 125 L367 60"/><path d="M330 145 L367 215"/><path d="M530 225 H575"/><path d="M710 215 L727 160"/>
         </g>
-        <circle id="clic-dot" r="9" fill="#0B7F67" cx="80" cy="145" opacity="0"/>
+        <circle id="clic-dot" r="9" fill="#0B7F67" cx="80" cy="135" opacity="0"/>
       </svg>
-      <ol id="clic-log" style="margin:8px 0 0;padding-left:22px;font-size:17px;line-height:1.5;min-height:150px"></ol>
+      <ol id="clic-log" style="margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.45;min-height:130px"></ol>
     </div>
   </div>
-  <p class="cite">Ejemplo ficticio construido sobre los componentes del diagrama de despliegue de AgendaYa (Semana 4). Tiempos ilustrativos. La idea de la cadena de responsabilidades detrás de un clic proviene de la clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">Modelo conceptual de microservicios basado en el diagrama de despliegue de la aplicación AgendaYa. Tiempos de procesamiento ilustrativos.</p>
 </section>
 
 <!-- 2 RUTA -->
-<section class="slide" data-block="1" data-title="Ruta de la presentación">
-  <h2>La ruta</h2>
-  <p class="lead">Una aplicación web expone y consume servicios. Para entender cómo, recorremos cinco paradas, de la organización interna hacia la decisión de arquitectura.</p>
-  <div id="ruta" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:26px">
-    <button data-go="3" style="text-align:left;padding:18px;height:180px;display:flex;flex-direction:column;gap:8px"><span style="font-size:30px;font-family:var(--serif)">1</span><span>MVC como base</span><span class="small" style="font-weight:400">Quién hace qué dentro de la aplicación</span></button>
-    <button data-go="6" style="text-align:left;padding:18px;height:180px;display:flex;flex-direction:column;gap:8px"><span style="font-size:30px;font-family:var(--serif)">2</span><span>Servicio web</span><span class="small" style="font-weight:400">Endpoint, servicio y contrato</span></button>
-    <button data-go="8" style="text-align:left;padding:18px;height:180px;display:flex;flex-direction:column;gap:8px;border-color:var(--rest)"><span style="font-size:30px;font-family:var(--serif)" class="rest">3</span><span>REST</span><span class="small" style="font-weight:400">Métodos, códigos y contrato OpenAPI</span></button>
-    <button data-go="14" style="text-align:left;padding:18px;height:180px;display:flex;flex-direction:column;gap:8px;border-color:var(--soap)"><span style="font-size:30px;font-family:var(--serif)" class="soap">4</span><span>SOAP</span><span class="small" style="font-weight:400">Sobre, WSDL y WS-Security</span></button>
-    <button data-go="19" style="text-align:left;padding:18px;height:180px;display:flex;flex-direction:column;gap:8px;border-color:var(--seal)"><span style="font-size:30px;font-family:var(--serif)" class="seal">5</span><span>Decidir</span><span class="small" style="font-weight:400">Cuándo usar cada uno y por qué</span></button>
+<section class="slide" data-block="1" data-title="Estructura de la presentación">
+  <h2>Ruta temático-conceptual</h2>
+  <p class="lead">Un recorrido estructurado desde la organización interna del software en el servidor hasta la selección fundamentada de protocolos de integración.</p>
+  <div id="ruta" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:22px">
+    <button data-go="3" style="text-align:left;padding:18px;height:185px;display:flex;flex-direction:column;gap:8px"><span style="font-size:30px;font-family:var(--serif)">1</span><span>Patrón MVC</span><span class="small" style="font-weight:400">Desacoplamiento de responsabilidades</span></button>
+    <button data-go="6" style="text-align:left;padding:18px;height:185px;display:flex;flex-direction:column;gap:8px"><span style="font-size:30px;font-family:var(--serif)">2</span><span>Servicios Web</span><span class="small" style="font-weight:400">Endpoints, servicios y contratos</span></button>
+    <button data-go="8" style="text-align:left;padding:18px;height:185px;display:flex;flex-direction:column;gap:8px;border-color:var(--rest)"><span style="font-size:30px;font-family:var(--serif)" class="rest">3</span><span>Arquitectura REST</span><span class="small" style="font-weight:400">Métodos HTTP y especificación OpenAPI</span></button>
+    <button data-go="14" style="text-align:left;padding:18px;height:185px;display:flex;flex-direction:column;gap:8px;border-color:var(--soap)"><span style="font-size:30px;font-family:var(--serif)" class="soap">4</span><span>Protocolo SOAP</span><span class="small" style="font-weight:400">Estructura XML, WSDL y WS-Security</span></button>
+    <button data-go="19" style="text-align:left;padding:18px;height:185px;display:flex;flex-direction:column;gap:8px;border-color:var(--seal)"><span style="font-size:30px;font-family:var(--serif)" class="seal">5</span><span>Criterios de Selección</span><span class="small" style="font-weight:400">Evaluación comparativa y toma de decisiones</span></button>
   </div>
-  <p class="hint" style="margin-top:22px">Puedes hacer clic en cada parada para saltar a ella. Las flechas del teclado avanzan y retroceden; la tecla I abre el índice.</p>
-  <p class="cite">Pregunta orientadora: ¿para qué se utilizan los servicios SOAP y REST en una aplicación web, y qué métodos implementan?</p>
+  <div class="hint" style="margin-top:20px">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+    Haga clic en cualquiera de las secciones para navegar directamente a ella.
+  </div>
+  <p class="cite">Desarrollo alineado con los objetivos de aprendizaje de análisis de software orientado a la web e implementación del Modelo Vista Controlador.</p>
 </section>
 
 <!-- 3 MVC -->
-<section class="slide" data-block="2" data-title="MVC: tres responsabilidades">
-  <h2>MVC: tres responsabilidades separadas</h2>
+<section class="slide" data-block="2" data-title="Patrón Modelo-Vista-Controlador">
+  <h2>Modelo-Vista-Controlador (MVC): Separación de capas</h2>
   <div style="display:grid;grid-template-columns:1fr 440px;gap:34px;align-items:start">
     <div>
-      <div class="box" style="margin-bottom:12px"><h3>Modelo</h3><p>Representa los datos y contiene la lógica central del negocio: los organiza, los modifica y reacciona cuando cambian. En AgendaYa, la cita y la regla de que no se puede reservar un horario ocupado.</p></div>
-      <div class="box" style="margin-bottom:12px"><h3>Vista</h3><p>Es lo que ve y usa la persona: muestra información y recibe sus datos. En una API moderna, la "vista" puede ser un JSON en lugar de una página HTML.</p></div>
-      <div class="box"><h3>Controlador</h3><p>Controla el flujo: recibe la acción, decide si afecta al modelo o a la vista y coordina la respuesta.</p></div>
+      <div class="box" style="margin-bottom:12px"><h3>Modelo</h3><p>Encapsula el estado de la aplicación, las entidades de dominio y la lógica de negocio fundamental. Define las reglas de validación y persistencia de datos.</p></div>
+      <div class="box" style="margin-bottom:12px"><h3>Vista</h3><p>Gestiona la representación visual de los datos al cliente. En arquitecturas de API modernas, actúa como la capa de serialización (ej. JSON/XML) en lugar de plantillas HTML.</p></div>
+      <div class="box"><h3>Controlador</h3><p>Actúa como intermediario: intercepta las peticiones de la red, invoca la lógica de negocio del modelo y selecciona la representación de respuesta adecuada.</p></div>
     </div>
-    <svg viewBox="0 0 440 400" width="440" height="400" role="img" aria-label="Diagrama de la relación entre vista, controlador y modelo">
+    <svg viewBox="0 0 440 380" width="440" height="380" role="img" aria-label="Diagrama de la relación entre vista, controlador y modelo">
       <defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1A2330"/></marker></defs>
-      <g font-family="Source Sans 3, Arial" font-size="17" text-anchor="middle">
-        <circle cx="220" cy="70" r="58" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="220" y="66" font-weight="700">Controlador</text><text x="220" y="88" font-size="14">CitaController</text>
-        <circle cx="90" cy="300" r="58" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="90" y="296" font-weight="700">Vista</text><text x="90" y="318" font-size="14">pantalla o JSON</text>
-        <circle cx="350" cy="300" r="58" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="350" y="296" font-weight="700">Modelo</text><text x="350" y="318" font-size="14">Cita + reglas</text>
+      <g font-family="Source Sans 3, Arial" font-size="16" text-anchor="middle">
+        <circle cx="220" cy="65" r="56" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="220" y="61" font-weight="700">Controlador</text><text x="220" y="81" font-size="13">CitaController</text>
+        <circle cx="90" cy="285" r="56" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="90" y="281" font-weight="700">Vista</text><text x="90" y="301" font-size="13">JSON / DTO</text>
+        <circle cx="350" cy="285" r="56" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="350" y="281" font-weight="700">Modelo</text><text x="350" y="301" font-size="13">Entidad + Reglas</text>
       </g>
       <g stroke="#1A2330" stroke-width="1.8" fill="none" marker-end="url(#ah2)">
-        <path d="M120 250 L190 125"/><path d="M255 120 L320 248"/><path d="M292 300 H152"/>
+        <path d="M120 238 L190 118"/><path d="M255 113 L320 235"/><path d="M292 285 H152"/>
       </g>
-      <g font-family="Source Sans 3, Arial" font-size="14" fill="#5A6676">
-        <text x="95" y="185">1. acción</text><text x="300" y="180">2. actualiza</text><text x="175" y="290">3. nuevo estado</text>
+      <g font-family="Source Sans 3, Arial" font-size="13" fill="#5A6676">
+        <text x="95" y="175">1. Solicitud HTTP</text><text x="305" y="170">2. Invoca Lógica</text><text x="220" y="275">3. Retorna Estado</text>
       </g>
     </svg>
   </div>
@@ -201,163 +212,188 @@ Authorization: Bearer eyJhbGci…
 </section>
 
 <!-- 4 FLUJO -->
-<section class="slide" data-block="2" data-title="El flujo de una petición">
-  <h2>El flujo de una petición, paso a paso</h2>
+<section class="slide" data-block="2" data-title="Ciclo de vida de una petición HTTP">
+  <h2>Ciclo de vida de una petición en MVC con capa de servicio</h2>
   <div style="display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:start">
-    <svg viewBox="0 0 700 330" width="700" height="330" role="img" aria-label="Flujo de una petición en MVC con capa de servicio">
-      <defs><marker id="ah3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5A6676"/></marker></defs>
-      <g font-family="Source Sans 3, Arial" font-size="15" text-anchor="middle">
-        <g class="fnode" data-step="0"><rect x="10" y="130" width="110" height="64" rx="6" fill="#fff" stroke="#1A2330"/><text x="65" y="158">Usuaria</text><text x="65" y="176" font-size="13">toca Reservar</text></g>
-        <g class="fnode" data-step="1"><rect x="150" y="130" width="110" height="64" rx="6" fill="#fff" stroke="#1A2330"/><text x="205" y="158">Router</text><text x="205" y="176" font-size="13">front controller</text></g>
-        <g class="fnode" data-step="2"><rect x="290" y="130" width="120" height="64" rx="6" fill="#fff" stroke="#1A2330"/><text x="350" y="158">Controlador</text><text x="350" y="176" font-size="13">CitaController</text></g>
-        <g class="fnode" data-step="3"><rect x="440" y="130" width="120" height="64" rx="6" fill="#fff" stroke="#1A2330"/><text x="500" y="158">Servicio</text><text x="500" y="176" font-size="13">reglas de negocio</text></g>
-        <g class="fnode" data-step="4"><rect x="590" y="40" width="100" height="64" rx="6" fill="#fff" stroke="#1A2330"/><text x="640" y="68">Modelo</text><text x="640" y="86" font-size="13">PostgreSQL</text></g>
-        <g class="fnode" data-step="4"><rect x="590" y="220" width="100" height="64" rx="6" fill="#fff" stroke="#A87C12" stroke-dasharray="5 4"/><text x="640" y="248">Servicio</text><text x="640" y="266" font-size="13">externo</text></g>
-        <g class="fnode" data-step="5"><rect x="290" y="250" width="120" height="64" rx="6" fill="#fff" stroke="#1A2330"/><text x="350" y="278">Respuesta</text><text x="350" y="296" font-size="13">201 + JSON</text></g>
-      </g>
-      <g stroke="#5A6676" stroke-width="1.6" fill="none" marker-end="url(#ah3)">
-        <path d="M120 162 H146"/><path d="M260 162 H286"/><path d="M410 162 H436"/><path d="M560 150 L588 95"/><path d="M560 175 L588 232"/><path d="M350 194 V246"/><path d="M290 282 Q 65 300 65 198"/>
-      </g>
-    </svg>
     <div>
-      <div id="flujo-txt" class="box" style="min-height:220px"></div>
+      <div class="hint" style="margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Utilice los botones para avanzar paso a paso en el flujo de ejecución:
+      </div>
+      <svg viewBox="0 0 700 300" width="700" height="300" role="img" aria-label="Flujo de una petición en MVC con capa de servicio">
+        <defs><marker id="ah3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5A6676"/></marker></defs>
+        <g font-family="Source Sans 3, Arial" font-size="15" text-anchor="middle">
+          <g class="fnode" data-step="0"><rect x="10" y="120" width="110" height="60" rx="6" fill="#fff" stroke="#1A2330"/><text x="65" y="148">Cliente Web</text><text x="65" y="164" font-size="12">Petición POST</text></g>
+          <g class="fnode" data-step="1"><rect x="150" y="120" width="110" height="60" rx="6" fill="#fff" stroke="#1A2330"/><text x="205" y="148">Front Controller</text><text x="205" y="164" font-size="12">DispatcherServlet</text></g>
+          <g class="fnode" data-step="2"><rect x="290" y="120" width="120" height="60" rx="6" fill="#fff" stroke="#1A2330"/><text x="350" y="148">Controlador</text><text x="350" y="164" font-size="12">CitaController</text></g>
+          <g class="fnode" data-step="3"><rect x="440" y="120" width="120" height="60" rx="6" fill="#fff" stroke="#1A2330"/><text x="500" y="148">Servicio</text><text x="500" y="164" font-size="12">CitaService</text></g>
+          <g class="fnode" data-step="4"><rect x="590" y="30" width="100" height="60" rx="6" fill="#fff" stroke="#1A2330"/><text x="640" y="58">Repositorio</text><text x="640" y="74" font-size="12">Base de Datos</text></g>
+          <g class="fnode" data-step="4"><rect x="590" y="210" width="100" height="60" rx="6" fill="#fff" stroke="#A87C12" stroke-dasharray="5 4"/><text x="640" y="238">API Externa</text><text x="640" y="254" font-size="12">Pasarela Pago</text></g>
+          <g class="fnode" data-step="5"><rect x="290" y="230" width="120" height="60" rx="6" fill="#fff" stroke="#1A2330"/><text x="350" y="258">Respuesta</text><text x="350" y="274" font-size="12">JSON Payload</text></g>
+        </g>
+        <g stroke="#5A6676" stroke-width="1.6" fill="none" marker-end="url(#ah3)">
+          <path d="M120 150 H146"/><path d="M260 150 H286"/><path d="M410 150 H436"/><path d="M560 140 L588 85"/><path d="M560 165 L588 222"/><path d="M350 180 V224"/><path d="M290 260 Q 65 280 65 186"/>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <div id="flujo-txt" class="box" style="min-height:210px"></div>
       <div class="row" style="margin-top:14px;gap:10px"><button id="flujo-prev">Paso anterior</button><button id="flujo-next" class="on">Siguiente paso</button></div>
     </div>
   </div>
-  <p class="cite">Flujo adaptado de Singh et al. (2018, p. 201), donde Spring MVC dirige toda petición a un único punto de entrada (front controller) que la delega al controlador; la capa de servicio se incorpora según lo trabajado en clase (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">Adaptado de Singh et al. (2018, p. 201), incorporando la capa de servicio para desacoplamiento de reglas de negocio.</p>
 </section>
 
 <!-- 5 MVC BIEN Y MAL -->
-<section class="slide" data-block="2" data-title="MVC bien y mal hecho">
-  <h2>MVC bien y mal hecho</h2>
+<section class="slide" data-block="2" data-title="Patrones de diseño en el controlador">
+  <h2>Buenas prácticas frente a antipatrones en controladores</h2>
   <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:26px">
     <div>
-      <div class="row" style="gap:8px;margin-bottom:10px"><button id="mvc-mal" class="on">Controlador gigante</button><button id="mvc-bien">Controlador delgado + servicio</button></div>
-      <pre id="mvc-code" style="font-size:12.5px;line-height:1.45"></pre>
+      <div class="hint" style="margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Seleccione para comparar las arquitecturas de código:
+      </div>
+      <div class="row" style="gap:8px;margin-bottom:10px"><button id="mvc-mal" class="on">Antipatrón: Controlador Monolítico</button><button id="mvc-bien">Patrón: Controlador Delgado + Capa de Servicio</button></div>
+      <pre id="mvc-code" style="font-size:12px;line-height:1.4"></pre>
     </div>
     <div>
-      <h3>Tres errores frecuentes</h3>
+      <h3>Riesgos arquitectónicos comunes</h3>
       <ul class="clean">
-        <li><b>Controladores gigantes:</b> concentran validaciones, cálculos y consultas hasta volverse inmanejables.</li>
-        <li><b>Modelos anémicos:</b> clases que solo guardan datos mientras las reglas viven en otra parte.</li>
-        <li><b>Lógica crítica en la vista:</b> el cliente se puede manipular, así que las reglas importantes deben validarse en el servidor.</li>
+        <li><b>Controladores acoplados:</b> Concentran validaciones de entrada, lógica de dominio y persistencia, dificultando el mantenimiento.</li>
+        <li><b>Modelos anémicos:</b> Entidades reducidas a contenedores de datos (getters/setters) sin lógica de dominio propia.</li>
+        <li><b>Falta de encapsulamiento:</b> Delegar validaciones críticas al cliente expone vulnerabilidades de seguridad.</li>
       </ul>
-      <div class="box sealb" style="margin-top:14px"><p style="margin:0"><b>No es una arquitectura salvadora.</b> Separa responsabilidades y facilita el mantenimiento, pero la aplicación se sigue desplegando y escalando como una sola unidad, y probar una funcionalidad completa exige integrar las tres partes.</p></div>
+      <div class="box sealb" style="margin-top:14px"><p style="margin:0;font-size:16px"><b>Consideración técnica:</b> Aunque MVC independiza responsabilidades y facilita las pruebas unitarias, la aplicación se despliega como una unidad monolítica salvo que se estructure sobre microservicios.</p></div>
     </div>
   </div>
-  <p class="cite">Errores y analogía del mesero y la cocina: clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026). Limitaciones de escalabilidad y de pruebas: Singh et al. (2018, p. 206).</p>
+  <p class="cite">Singh et al. (2018, p. 206).</p>
 </section>
 
 <!-- 6 ENDPOINT SERVICIO CONTRATO -->
-<section class="slide" data-block="3" data-title="Endpoint, servicio y contrato">
-  <h2>Endpoint, servicio y contrato no son lo mismo</h2>
+<section class="slide" data-block="3" data-title="Conceptos fundamentales de integración">
+  <h2>Diferenciación conceptual: Endpoint, Servicio y Contrato</h2>
   <div class="grid3" style="margin-bottom:22px">
-    <div class="box"><h3>Endpoint</h3><p>La dirección por donde se entra. Es solo la puerta.</p><pre style="font-size:13px">https://api.agendaya.co/v1/citas</pre></div>
-    <div class="box"><h3>Servicio web</h3><p>La funcionalidad que una aplicación expone para que otro sistema la consuma a través de la web.</p></div>
-    <div class="box sealb"><h3>Contrato</h3><p>Lo que se compromete: qué operaciones hay, qué datos espera, qué responde, qué errores puede devolver y qué seguridad exige.</p></div>
+    <div class="box"><h3>Endpoint</h3><p>La dirección de red (URL/URI) mediante la cual se expone una interfaz de comunicación.</p><pre style="font-size:12px">https://api.agendaya.co/v1/citas</pre></div>
+    <div class="box"><h3>Servicio Web</h3><p>La funcionalidad técnica expuesta por un sistema para ser consumida de forma remota mediante protocolos estándar.</p></div>
+    <div class="box sealb"><h3>Contrato de Servicio</h3><p>Especificación formal e inmutable que define las operaciones, estructuras de entrada/salida, errores y esquemas de seguridad.</p></div>
   </div>
   <div class="grid2">
     <div>
-      <h3>Dos roles en todo servicio</h3>
-      <p>El <b>proveedor</b> publica el servicio y el <b>consumidor</b> lo usa. Un directorio de servicios puede registrarlos para que el consumidor los encuentre.</p>
+      <h3>Roles en la arquitectura de integración</h3>
+      <p>El <b>Proveedor</b> publica la interfaz y garantiza el cumplimiento del contrato. El <b>Consumidor</b> ejecuta solicitudes orientadas al contrato expuesto.</p>
     </div>
     <div>
-      <h3>El contrato cambia de idioma</h3>
-      <p>En <span class="soap"><b>SOAP</b></span> se escribe en <b>WSDL</b>. En <span class="rest"><b>REST</b></span> suele documentarse con <b>OpenAPI</b>, que herramientas como Swagger convierten en documentación navegable.</p>
+      <h3>Especificación del contrato según el protocolo</h3>
+      <p>En <span class="soap"><b>SOAP</b></span> el contrato se define explícitamente mediante esquemas XML (<b>WSDL</b>). En <span class="rest"><b>REST</b></span> se formaliza habitualmente mediante la especificación <b>OpenAPI</b>.</p>
     </div>
   </div>
-  <p class="cite">Singh et al. (2018, p. 208); OpenAPI Initiative (2021); diferencia entre endpoint y contrato: clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">Singh et al. (2018, p. 208); OpenAPI Initiative (2021).</p>
 </section>
 
 <!-- 7 E-R A RECURSOS -->
-<section class="slide" data-block="3" data-title="De entidades a recursos">
-  <h2>De entidades a recursos</h2>
-  <p class="lead" style="margin-bottom:10px">El modelo entidad-relación no se queda en la base de datos: también define cómo se nombran los recursos de una API REST. Haz clic en cada elemento del diagrama.</p>
-  <div style="display:grid;grid-template-columns:600px 1fr;gap:28px;align-items:start">
-    <svg viewBox="0 0 610 260" width="610" height="260" role="img" aria-label="Diagrama entidad-relación de Cliente, Cita y Proveedor">
-      <g font-family="Source Sans 3, Arial" font-size="17" text-anchor="middle">
-        <g class="er" data-er="cliente" tabindex="0"><rect x="10" y="100" width="120" height="56" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="70" y="134">Cliente</text></g>
-        <g class="er" data-er="reserva" tabindex="0"><polygon points="215,128 265,98 315,128 265,158" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="265" y="133" font-size="15">reserva</text></g>
-        <g class="er" data-er="cita" tabindex="0"><rect x="350" y="100" width="110" height="56" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="405" y="134">Cita</text></g>
-        <g class="er" data-er="atiende" tabindex="0"><polygon points="405,172 450,197 405,222 360,197" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="405" y="202" font-size="14">atiende</text></g>
-        <g class="er" data-er="proveedor" tabindex="0"><rect x="480" y="200" width="120" height="56" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="540" y="234">Proveedor</text></g>
-        <g class="er" data-er="atributos" tabindex="0"><ellipse cx="405" cy="36" rx="70" ry="24" fill="#fff" stroke="#1A2330"/><text x="405" y="41" font-size="15">fecha, hora</text></g>
-      </g>
-      <g stroke="#1A2330" stroke-width="1.6"><line x1="130" y1="128" x2="215" y2="128"/><line x1="315" y1="128" x2="350" y2="128"/><line x1="405" y1="156" x2="405" y2="172"/><line x1="450" y1="197" x2="480" y2="226"/><line x1="405" y1="60" x2="405" y2="100"/></g>
-      <g font-family="Source Sans 3, Arial" font-size="14" fill="#5A6676"><text x="170" y="120">1</text><text x="333" y="120">M</text><text x="416" y="168">M</text><text x="468" y="206">1</text></g>
-    </svg>
-    <div id="er-txt" class="box restb" style="min-height:220px"><p style="margin:0">Selecciona una entidad, la relación o los atributos.</p></div>
+<section class="slide" data-block="3" data-title="Mapeo de Entidades a Recursos REST">
+  <h2>Modelado de datos: Del modelo E-R a recursos RESTful</h2>
+  <p class="lead" style="margin-bottom:8px">Las entidades y relaciones del modelo de datos orientan el diseño de las URIs en una API REST.</p>
+  <div class="hint" style="margin-bottom:8px">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+    Haga clic en los componentes del diagrama E-R para explorar su equivalencia en REST:
   </div>
-  <p class="cite">Conceptos de entidad, relación, cardinalidad y atributo: Martínez y Gallegos (2017, pp. 42-43); restricciones de integridad: Martínez y Gallegos (2017, p. 57). Correspondencia con recursos REST: elaboración propia.</p>
+  <div style="display:grid;grid-template-columns:600px 1fr;gap:28px;align-items:start">
+    <svg viewBox="0 0 610 250" width="610" height="250" role="img" aria-label="Diagrama entidad-relación de Cliente, Cita y Proveedor">
+      <g font-family="Source Sans 3, Arial" font-size="16" text-anchor="middle">
+        <g class="er" data-er="cliente" tabindex="0"><rect x="10" y="90" width="120" height="54" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="70" y="123">Cliente</text></g>
+        <g class="er" data-er="reserva" tabindex="0"><polygon points="215,117 265,87 315,117 265,147" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="265" y="122" font-size="14">reserva</text></g>
+        <g class="er" data-er="cita" tabindex="0"><rect x="350" y="90" width="110" height="54" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="405" y="123">Cita</text></g>
+        <g class="er" data-er="atiende" tabindex="0"><polygon points="405,160 450,185 405,210 360,185" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="405" y="190" font-size="13">atiende</text></g>
+        <g class="er" data-er="proveedor" tabindex="0"><rect x="480" y="185" width="120" height="54" fill="#fff" stroke="#1A2330" stroke-width="2"/><text x="540" y="218">Proveedor</text></g>
+        <g class="er" data-er="atributos" tabindex="0"><ellipse cx="405" cy="30" rx="65" ry="22" fill="#fff" stroke="#1A2330"/><text x="405" y="35" font-size="14">fecha, hora</text></g>
+      </g>
+      <g stroke="#1A2330" stroke-width="1.6"><line x1="130" y1="117" x2="215" y2="117"/><line x1="315" y1="117" x2="350" y2="117"/><line x1="405" y1="144" x2="405" y2="160"/><line x1="450" y1="185" x2="480" y2="212"/><line x1="405" y1="52" x2="405" y2="90"/></g>
+      <g font-family="Source Sans 3, Arial" font-size="13" fill="#5A6676"><text x="170" y="110">1</text><text x="333" y="110">M</text><text x="416" y="156">M</text><text x="468" y="195">1</text></g>
+    </svg>
+    <div id="er-txt" class="box restb" style="min-height:210px"><p style="margin:0">Seleccione un elemento del diagrama para desplegar el mapeo.</p></div>
+  </div>
+  <p class="cite">Martínez López y Gallegos Ruiz (2017, pp. 42-43, 57).</p>
 </section>
 
 <!-- 8 REST ESTILO -->
-<section class="slide" data-block="4" data-title="REST es un estilo">
-  <h2><span class="rest">REST</span> es un estilo de arquitectura, no un protocolo</h2>
-  <p class="lead" style="margin-bottom:16px">Roy Fielding lo definió en el año 2000 como un conjunto de restricciones. Una API es "RESTful" en la medida en que las respeta. Comparado con SOAP, tiene pocas reglas de formato: basta con exponer recursos sobre HTTP.</p>
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px 26px">
-    <div class="box"><h3>Cliente-servidor</h3><p>La app y el backend evolucionan por separado. El dispositivo del cliente no sabe cómo se guardan las citas.</p></div>
-    <div class="box"><h3>Sin estado</h3><p>Cada petición trae todo lo que el servidor necesita, incluido el token. El servidor no recuerda la petición anterior.</p></div>
-    <div class="box"><h3>Caché</h3><p>Las respuestas indican si se pueden reutilizar. En AgendaYa, Redis guarda la disponibilidad de horarios.</p></div>
-    <div class="box"><h3>Sistema en capas e interfaz uniforme</h3><p>El cliente habla con el API Gateway sin saber qué hay detrás, y todos los recursos se manejan con los mismos métodos HTTP.</p></div>
+<section class="slide" data-block="4" data-title="Principios de la Arquitectura REST">
+  <h2><span class="rest">REST</span>: Restricciones de un estilo arquitectónico</h2>
+  <p class="lead" style="margin-bottom:14px">Formulado por Roy Fielding (2000), REST no constituye un protocolo, sino un conjunto de restricciones arquitectónicas para sistemas distribuidos.</p>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px 24px">
+    <div class="box"><h3>Desacoplamiento Cliente-Servidor</h3><p>Separa las responsabilidades de interfaz de usuario de las de almacenamiento de datos, permitiendo su evolución independiente.</p></div>
+    <div class="box"><h3>Sin Estado (Stateless)</h3><p>Cada petición debe contener la totalidad de la información requerida para ser procesada. El servidor no mantiene contexto de sesión entre peticiones.</p></div>
+    <div class="box"><h3>Capacidad de Caché</h3><p>Las respuestas deben declararse explícitamente como almacenables o no en caché para optimizar el rendimiento y reducir la latencia de red.</p></div>
+    <div class="box"><h3>Interfaz Uniforme y Sistemas en Capas</h3><p>Estandariza las interacciones mediante recursos y métodos HTTP, permitiendo la intermediación de proxies, gateways y balanceadores.</p></div>
   </div>
   <p class="cite">Fielding (2000, cap. 5); Singh et al. (2018, p. 209).</p>
 </section>
 
 <!-- 9 MÉTODOS -->
-<section class="slide" data-block="4" data-title="Los métodos HTTP">
-  <h2>Los métodos HTTP y lo que significan</h2>
-  <div class="row" id="met-tabs" style="gap:10px;margin-bottom:16px">
+<section class="slide" data-block="4" data-title="Semántica de los Métodos HTTP">
+  <h2>Semántica y propiedades de los métodos HTTP</h2>
+  <div class="hint" style="margin-bottom:8px">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+    Seleccione un método HTTP para analizar su definición técnica y ejemplo de implementación:
+  </div>
+  <div class="row" id="met-tabs" style="gap:10px;margin-bottom:14px">
     <button class="m-get on" data-m="GET">GET</button><button class="m-post" data-m="POST">POST</button><button class="m-put" data-m="PUT">PUT</button><button class="m-patch" data-m="PATCH">PATCH</button><button class="m-delete" data-m="DELETE">DELETE</button>
   </div>
   <div style="display:grid;grid-template-columns:1fr 480px;gap:28px">
     <div>
       <h3 id="met-nombre"></h3>
       <p id="met-desc"></p>
-      <div class="row" style="gap:10px;margin:10px 0 14px"><span id="met-seguro" class="tag"></span><span id="met-idem" class="tag"></span></div>
+      <div class="row" style="gap:10px;margin:10px 0 12px"><span id="met-seguro" class="tag"></span><span id="met-idem" class="tag"></span></div>
       <p class="small" id="met-nota"></p>
     </div>
-    <div><p class="small" style="margin-bottom:6px">En AgendaYa:</p><pre id="met-ej" style="height:250px"></pre></div>
+    <div><p class="small" style="margin-bottom:4px">Estructura del mensaje HTTP:</p><pre id="met-ej" style="height:240px"></pre></div>
   </div>
-  <p class="cite">Semántica, métodos seguros e idempotentes: Fielding et al. (2022, secc. 9.2); PATCH: Dusseault y Snell (2010). Singh et al. (2018, p. 209) presenta GET, POST, PUT y DELETE como los métodos básicos de un servicio REST.</p>
+  <p class="cite">Fielding et al. (2022, secc. 9.2); Dusseault y Snell (2010); Singh et al. (2018, p. 209).</p>
 </section>
 
 <!-- 10 PUT VS PATCH -->
-<section class="slide" data-block="4" data-title="PUT frente a PATCH">
-  <h2>PUT frente a PATCH: reemplazar o modificar</h2>
+<section class="slide" data-block="4" data-title="Idempotencia: PUT frente a PATCH">
+  <h2>Diferenciación técnica: PUT frente a PATCH</h2>
   <div style="display:grid;grid-template-columns:1fr 430px;gap:30px">
     <div>
-      <p><b class="seal">PUT</b> envía el recurso completo y lo <b>reemplaza</b>. <b class="seal">PATCH</b> envía solo los cambios y lo <b>modifica parcialmente</b>.</p>
-      <p>La diferencia de fondo es la <b>idempotencia</b>: repetir el mismo PUT deja el recurso igual. Con PATCH no está garantizado, porque depende de cómo se escriba el cambio. Prueba enviar cada petición dos veces:</p>
-      <div class="row" style="gap:10px;flex-wrap:wrap;margin:12px 0">
+      <p><b class="seal">PUT</b> reemplaza la representación completa del recurso target. <b class="seal">PATCH</b> aplica modificaciones parciales especificadas en el payload (RFC 5789).</p>
+      <p>La diferencia fundamental radica en la <b>idempotencia</b>. Invoque repetidamente los botones para observar el comportamiento en el servidor:</p>
+      <div class="hint" style="margin-bottom:6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Pruebe la diferencia enviando la misma solicitud múltiples veces:
+      </div>
+      <div class="row" style="gap:8px;flex-wrap:wrap;margin:8px 0 12px">
         <button id="pp-put" class="m-put">PUT hora = 11:00</button>
         <button id="pp-patch" class="m-patch">PATCH hora = 11:00</button>
         <button id="pp-rel" class="m-patch">PATCH hora + 30 min</button>
-        <button id="pp-reset">Reiniciar</button>
+        <button id="pp-reset">Restablecer</button>
       </div>
-      <p id="pp-msg" class="small" style="min-height:48px;color:var(--ink)"></p>
-      <div class="box sealb"><p style="margin:0">En clase se dijo que PATCH "se demora menos". Lo preciso es que suele enviar <b>menos datos</b>; la velocidad real depende de la implementación y de la red, no del método.</p></div>
+      <p id="pp-msg" class="small" style="min-height:44px;color:var(--ink)"></p>
+      <div class="box sealb"><p style="margin:0;font-size:15px"><b>Nota de rendimiento:</b> Aunque PATCH suele reducir el volumen de datos transferidos en la red, el tiempo total de procesamiento depende de la complejidad computacional en el backend.</p></div>
     </div>
-    <div><p class="small" style="margin-bottom:6px">Estado de la cita en el servidor</p><pre id="pp-estado" style="height:200px"></pre><p class="small" style="margin-top:8px" id="pp-cont">Peticiones enviadas: 0</p></div>
+    <div><p class="small" style="margin-bottom:4px">Estado del recurso en el servidor (JSON):</p><pre id="pp-estado" style="height:190px"></pre><p class="small" style="margin-top:6px" id="pp-cont">Peticiones procesadas: 0</p></div>
   </div>
-  <p class="cite">Fielding et al. (2022, secc. 9.2.2 y 9.3.4); Dusseault y Snell (2010, secc. 2). Diferencia entre PUT y PATCH trabajada en clase (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">Fielding et al. (2022, secc. 9.2.2, 9.3.4); Dusseault y Snell (2010, secc. 2).</p>
 </section>
 
 <!-- 11 CÓDIGOS Y CABECERAS -->
-<section class="slide" data-block="4" data-title="Códigos de estado y cabeceras">
-  <h2>Códigos de estado y cabeceras</h2>
+<section class="slide" data-block="4" data-title="Códigos de Respuesta HTTP y Cabeceras">
+  <h2>Códigos de estado HTTP y estructura de cabeceras</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
     <div>
-      <p>Cada respuesta trae un código de tres cifras que dice cómo terminó la operación. La primera cifra indica la familia: 2xx éxito, 4xx error del cliente, 5xx error del servidor.</p>
-      <div id="cod-chips" class="row" style="flex-wrap:wrap;gap:8px;margin:10px 0 14px"></div>
-      <div id="cod-txt" class="box" style="min-height:120px"></div>
+      <p>Los códigos de estado informan el resultado del procesamiento. Las familias estandarizadas son: <b>2xx</b> (Éxito), <b>4xx</b> (Error de Cliente) y <b>5xx</b> (Error de Servidor).</p>
+      <div class="hint" style="margin-bottom:6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Haga clic en un código para consultar su semántica:
+      </div>
+      <div id="cod-chips" class="row" style="flex-wrap:wrap;gap:8px;margin:8px 0 12px"></div>
+      <div id="cod-txt" class="box" style="min-height:110px"></div>
     </div>
     <div>
-      <p>Las <b>cabeceras</b> transportan metadatos: formato, credenciales, idioma y caché. El <b>cuerpo</b> lleva los datos, normalmente en JSON.</p>
-<pre style="font-size:13.5px"><span class="rest">GET /v1/citas/587 HTTP/1.1</span>
+      <p>Las <b>cabeceras (headers)</b> transfieren metadatos de control (autenticación, tipo de contenido, caching). El <b>cuerpo (payload)</b> transporta la entidad serializada.</p>
+<pre style="font-size:12.5px"><span class="rest">GET /v1/citas/587 HTTP/1.1</span>
 Host: api.agendaya.co
 Accept: application/json
-Accept-Language: es-CO
 Authorization: Bearer eyJhbGci…
 
 <span class="rest">HTTP/1.1 200 OK</span>
@@ -370,41 +406,45 @@ Cache-Control: no-store
   </div>
   <p class="cite">Fielding et al. (2022, secc. 15).</p>
 </section>
+
 <!-- 12 SIMULADOR REST -->
-<section class="slide" data-block="4" data-title="Simulador REST de AgendaYa">
-  <h2>Simulador: la API REST de AgendaYa</h2>
+<section class="slide" data-block="4" data-title="Simulador de API REST">
+  <h2>Simulador interactivo: Consumo de la API REST</h2>
   <div style="display:grid;grid-template-columns:520px 1fr;gap:26px">
     <div>
+      <div class="hint" style="margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Configure los parámetros de la solicitud HTTP y presione "Enviar":
+      </div>
       <div class="row" style="gap:8px;margin-bottom:10px">
         <select id="sim-met" aria-label="Método HTTP"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select>
         <select id="sim-ruta" aria-label="Ruta" style="flex:1"><option>/v1/citas</option><option>/v1/citas/587</option><option>/v1/citas/999</option><option>/v1/clientes/1042/citas</option></select>
       </div>
-      <label class="small" for="sim-body">Cuerpo de la petición (JSON)</label>
-      <textarea id="sim-body" rows="9" style="width:100%;margin-top:4px;resize:none"></textarea>
-      <div class="row" style="gap:8px;margin-top:10px;align-items:center">
+      <label class="small" for="sim-body">Cuerpo de la petición (Payload JSON)</label>
+      <textarea id="sim-body" rows="8" style="width:100%;margin-top:4px;resize:none"></textarea>
+      <div class="row" style="gap:8px;margin-top:8px;align-items:center">
         <button id="sim-send" class="on">Enviar petición</button>
-        <label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="sim-token" checked> Incluir token</label>
-        <button id="sim-reset">Reiniciar datos</button>
+        <label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="sim-token" checked> Enviar Token Bearer</label>
+        <button id="sim-reset">Restablecer DB</button>
       </div>
-      <p class="hint" style="margin-top:10px">Prueba: crea una cita con POST, cámbiale la hora con PATCH, consulta otra que no existe o quita el token.</p>
     </div>
-    <div><p class="small" style="margin-bottom:6px">Respuesta del servidor</p><pre id="sim-res" style="height:400px;font-size:13.5px"></pre></div>
+    <div><p class="small" style="margin-bottom:4px">Respuesta del servidor en tiempo real:</p><pre id="sim-res" style="height:380px;font-size:12.5px"></pre></div>
   </div>
-  <p class="cite">Simulación en el navegador con datos ficticios; no se conecta a ningún servidor real.</p>
+  <p class="cite">Entorno de ejecución simulado mediante código cliente JavaScript local.</p>
 </section>
 
 <!-- 13 CONTRATO REST -->
-<section class="slide" data-block="4" data-title="El contrato REST: OpenAPI y versiones">
-  <h2>El contrato REST: OpenAPI y versionado</h2>
+<section class="slide" data-block="4" data-title="Especificación OpenAPI y Versionado">
+  <h2>Especificación OpenAPI y estrategias de versionado</h2>
   <div style="display:grid;grid-template-columns:470px 1fr;gap:28px">
-<pre style="font-size:12.5px;line-height:1.42"><span class="rest">openapi: 3.1.0</span>
+<pre style="font-size:12px;line-height:1.4"><span class="rest">openapi: 3.1.0</span>
 info:
   title: API de AgendaYa
   version: 1.0.0
 paths:
   /v1/citas/{id}:
     get:
-      summary: Consultar una cita
+      summary: Obtener detalle de cita
       security:
         - bearerAuth: []
       responses:
@@ -415,202 +455,225 @@ paths:
               schema:
                 $ref: "#/components/schemas/Cita"
         "401":
-          description: Token ausente o inválido
+          description: Autenticación no válida
         "404":
-          description: La cita no existe</pre>
+          description: Recurso no encontrado</pre>
     <div>
-      <p>El documento OpenAPI dice qué operaciones existen, qué recibe y devuelve cada una, qué errores puede haber y qué seguridad exige. Es el mismo papel que cumple el WSDL en SOAP, pero opcional: REST funciona sin él, aunque una API seria no debería.</p>
-      <h3 style="margin-top:14px">¿Qué pasa si cambio el contrato?</h3>
-      <p class="small" style="color:var(--ink)">La versión 2 renombra el campo <code>hora</code> a <code>horaInicio</code>. La app móvil instalada todavía espera <code>hora</code>.</p>
-      <div class="row" style="gap:10px;margin:8px 0 10px"><button id="ver-mal">Cambiar sin versionar</button><button id="ver-bien">Publicar como /v2</button></div>
-      <div id="ver-txt" class="box" style="min-height:110px"><p class="small" style="margin:0">Elige una opción.</p></div>
+      <p>OpenAPI permite formalizar contratos en REST. Especifica parámetros de entrada, respuestas, esquemas de datos y mecanismos de autorización.</p>
+      <h3 style="margin-top:14px">Gestión de cambios de esquema (Breaking Changes)</h3>
+      <p class="small" style="color:var(--ink)">Si un campo es renombrado (ej. <code>hora</code> a <code>horaInicio</code>), los clientes heredados fallarán si la API no mantiene compatibilidad hacia atrás.</p>
+      <div class="hint" style="margin:6px 0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Seleccione una estrategia para evaluar su impacto:
+      </div>
+      <div class="row" style="gap:10px;margin:8px 0 10px"><button id="ver-mal">Modificar contrato en producción</button><button id="ver-bien">Publicar nueva versión (/v2)</button></div>
+      <div id="ver-txt" class="box" style="min-height:100px"><p class="small" style="margin:0">Seleccione una opción para evaluar el comportamiento.</p></div>
     </div>
   </div>
-  <p class="cite">OpenAPI Initiative (2021). Versionado para no romper a los consumidores existentes: clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">OpenAPI Initiative (2021).</p>
 </section>
 
 <!-- 14 SOAP PROTOCOLO -->
-<section class="slide" data-block="5" data-title="SOAP es un protocolo">
-  <h2><span class="soap">SOAP</span> es un protocolo, y es estricto</h2>
+<section class="slide" data-block="5" data-title="El Protocolo SOAP">
+  <h2><span class="soap">SOAP</span>: Protocolo estandarizado de intercambio</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
     <div>
-      <p><b>Simple Object Access Protocol.</b> Define cómo se construye cada mensaje, siempre en XML y con un formato muy específico. Normalmente viaja sobre HTTP, aunque el protocolo no depende de él.</p>
-      <p>Su rigidez es su fortaleza: el contrato describe con precisión qué se puede enviar y recibir, y el mensaje puede llevar en su cabecera seguridad, trazabilidad e información de la transacción.</p>
-      <p>Por eso sigue vigente en <b>banca, salud y gobierno</b>, donde el contrato formal es exigente y un dato no se puede perder. No es "lo viejo": es lo pesado, y a veces ese peso es justo lo que se necesita.</p>
+      <p><b>Simple Object Access Protocol (SOAP)</b> define un marco de mensajería estricto basado en XML. Independiente del protocolo de transporte underlying (HTTP, SMTP, JMS).</p>
+      <p>Garantiza interoperabilidad empresarial mediante la estandarización de contratos (WSDL) y políticas de seguridad/transaccionalidad en la cabecera del mensaje.</p>
+      <p>Es el estándar predominante en sectores como <b>banca, salud y entidades gubernamentales</b> que requieren contratos rígidos y no repudiabilidad.</p>
     </div>
     <div>
       <div class="box soapb" style="margin-bottom:14px">
-        <h3>Ejemplo real en Colombia</h3>
-        <p style="margin:0">La factura electrónica con validación previa de la DIAN se envía a un servicio web SOAP 1.2, autenticado con WS-Security (perfil UsernameToken). Operaciones como <code>SendBillSync</code> (enviar la factura) y <code>GetStatus</code> (consultar su estado) están definidas en su contrato.</p>
+        <h3>Caso de aplicación nacional: Facturación Electrónica DIAN</h3>
+        <p style="margin:0;font-size:16px">La Dirección de Impuestos y Aduanas Nacionales (DIAN) en Colombia exige el uso de servicios web SOAP 1.2 con WS-Security para la transmisión y validación previa de comprobantes electrónicos (operaciones <code>SendBillSync</code> y <code>GetStatus</code>).</p>
       </div>
       <div class="box">
-        <h3>En AgendaYa</h3>
-        <p style="margin:0">Al cobrar el depósito de una cita habría que emitir factura electrónica. Esa integración externa no se elige: la DIAN impone SOAP. Es una extensión del diagrama de la Semana 4.</p>
+        <h3>Integración en la arquitectura</h3>
+        <p style="margin:0;font-size:16px">En el ecosistema AgendaYa, la emisión del comprobante fiscal requiere consumir de forma obligatoria el servicio SOAP regulado por la DIAN.</p>
       </div>
     </div>
   </div>
-  <p class="cite">Singh et al. (2018, p. 208); W3C (2007); DIAN (2018, 2021). Uso en banca, salud y gobierno: clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">Singh et al. (2018, p. 208); W3C (2007); DIAN (2018, 2021).</p>
 </section>
 
 <!-- 15 ANATOMÍA DEL SOBRE -->
-<section class="slide" data-block="5" data-title="Anatomía del sobre SOAP">
-  <h2>Anatomía del sobre SOAP</h2>
+<section class="slide" data-block="5" data-title="Estructura del Mensaje SOAP">
+  <h2>Anatomía de la estructura XML de un sobre SOAP</h2>
   <div style="display:grid;grid-template-columns:470px 1fr;gap:30px;align-items:start">
     <div id="sobre" style="font-family:var(--sans)">
+      <div class="hint" style="margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Haga clic en las capas del sobre XML para examinar su estructura:
+      </div>
       <div class="sp" data-sp="env" tabindex="0" style="border:2.5px solid var(--soap);border-radius:8px;padding:12px 14px;background:#fff;cursor:pointer">
-        <b class="soap">Envelope</b> <span class="small">obligatorio</span>
-        <div class="sp" data-sp="head" tabindex="0" style="border:2px dashed var(--soap);border-radius:6px;padding:12px;margin:10px 0;background:var(--soap-bg);cursor:pointer"><b>Header</b> <span class="small">opcional</span><div class="small" style="margin-top:4px">seguridad, trazabilidad, transacción</div></div>
-        <div class="sp" data-sp="body" tabindex="0" style="border:2px solid var(--soap);border-radius:6px;padding:12px;background:var(--soap-bg);cursor:pointer"><b>Body</b> <span class="small">obligatorio</span><div class="small" style="margin-top:4px">la operación y sus datos</div>
-          <div class="sp" data-sp="fault" tabindex="0" style="border:2px dashed var(--err);border-radius:6px;padding:10px;margin-top:10px;background:var(--err-bg);cursor:pointer"><b class="err">Fault</b> <span class="small">opcional</span><div class="small" style="margin-top:4px">estado y descripción del error</div></div>
+        <b class="soap">Envelope</b> <span class="small">(Elemento Raíz Obligatorio)</span>
+        <div class="sp" data-sp="head" tabindex="0" style="border:2px dashed var(--soap);border-radius:6px;padding:10px;margin:8px 0;background:var(--soap-bg);cursor:pointer"><b>Header</b> <span class="small">(Opcional: Metadatos/Seguridad)</span></div>
+        <div class="sp" data-sp="body" tabindex="0" style="border:2px solid var(--soap);border-radius:6px;padding:10px;background:var(--soap-bg);cursor:pointer"><b>Body</b> <span class="small">(Obligatorio: Payload / Operación)</span>
+          <div class="sp" data-sp="fault" tabindex="0" style="border:2px dashed var(--err);border-radius:6px;padding:8px;margin-top:8px;background:var(--err-bg);cursor:pointer"><b class="err">Fault</b> <span class="small">(Opcional: Tratamiento de Errores)</span></div>
         </div>
       </div>
-      <p class="hint" style="margin-top:10px">Haz clic en cada parte del sobre.</p>
     </div>
-    <div><div id="sobre-txt" class="box soapb" style="min-height:120px;margin-bottom:12px"></div><pre id="sobre-code" style="font-size:13px;height:230px"></pre></div>
+    <div><div id="sobre-txt" class="box soapb" style="min-height:110px;margin-bottom:10px"></div><pre id="sobre-code" style="font-size:12.5px;height:240px"></pre></div>
   </div>
   <p class="cite">Singh et al. (2018, pp. 208-209); W3C (2007, secc. 5).</p>
 </section>
 
 <!-- 16 WSDL -->
-<section class="slide" data-block="5" data-title="WSDL: el contrato formal">
-  <h2>WSDL: el contrato formal de SOAP</h2>
-  <p class="lead" style="margin-bottom:14px;max-width:none">El WSDL es un documento XML que describe el servicio completo. Con él, un consumidor puede generar su cliente automáticamente, por ejemplo con JAX-WS en Java.</p>
-  <div style="display:grid;grid-template-columns:400px 1fr;gap:26px">
-    <div id="wsdl-list" style="display:flex;flex-direction:column;gap:8px">
-      <button data-w="types" class="on" style="text-align:left">types: ¿qué tipos de datos hay?</button>
-      <button data-w="message" style="text-align:left">message: ¿qué entra y qué sale?</button>
-      <button data-w="portType" style="text-align:left">portType: ¿qué operaciones ofrece?</button>
-      <button data-w="binding" style="text-align:left">binding: ¿cómo viaja el mensaje?</button>
-      <button data-w="service" style="text-align:left">service: ¿dónde está?</button>
+<section class="slide" data-block="5" data-title="Especificación WSDL">
+  <h2>WSDL: Lenguaje de Descripción de Servicios Web</h2>
+  <p class="lead" style="margin-bottom:10px;max-width:none">El WSDL es un documento XML que formaliza el contrato del servicio, permitiendo la generación automatizada de stubs y clientes en entornos como Java (JAX-WS).</p>
+  <div style="display:grid;grid-template-columns:380px 1fr;gap:26px">
+    <div>
+      <div class="hint" style="margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Seleccione una sección del WSDL para inspeccionar su código XML:
+      </div>
+      <div id="wsdl-list" style="display:flex;flex-direction:column;gap:6px">
+        <button data-w="types" class="on" style="text-align:left">types: Esquemas de Datos (XSD)</button>
+        <button data-w="message" style="text-align:left">message: Definición de Mensajes</button>
+        <button data-w="portType" style="text-align:left">portType: Interfaz de Operaciones</button>
+        <button data-w="binding" style="text-align:left">binding: Protocolo y Transporte</button>
+        <button data-w="service" style="text-align:left">service: Endpoint de Red</button>
+      </div>
     </div>
-    <div><p id="wsdl-txt" style="font-size:18px;min-height:56px"></p><pre id="wsdl-code" style="font-size:13px"></pre></div>
+    <div><p id="wsdl-txt" style="font-size:17px;min-height:50px;margin-bottom:8px"></p><pre id="wsdl-code" style="font-size:12.5px;height:240px"></pre></div>
   </div>
-  <p class="cite">W3C (2001). Las preguntas que responde cada parte siguen la explicación de la clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">W3C (2001).</p>
 </section>
 
 <!-- 17 WS-SECURITY -->
-<section class="slide" data-block="5" data-title="Seguridad con WS-Security">
-  <h2>Seguridad dentro del mensaje: WS-Security</h2>
+<section class="slide" data-block="5" data-title="Seguridad Nivel Mensaje (WS-Security)">
+  <h2>Seguridad en la capa de aplicación con WS-Security</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px">
     <div>
-      <p>Con WS-Security, las credenciales viajan en el <b>Header</b> del sobre, separadas de los datos del negocio que van en el <b>Body</b>. El perfil <b>UsernameToken</b> envía usuario y contraseña.</p>
-      <div class="row" style="gap:8px;flex-wrap:wrap;margin:10px 0"><button id="ws-ok" class="on">Credenciales correctas</button><button id="ws-bad">Contraseña errónea</button><button id="ws-none">Sin token</button></div>
-      <pre id="ws-req" style="font-size:11.8px"></pre>
+      <p>WS-Security desacopla la seguridad del protocolo de transporte, insertando tokens de autenticación y firmas digitales dentro de la cabecera <code>Header</code> del sobre SOAP.</p>
+      <div class="hint" style="margin-bottom:6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Simule las variantes de autenticación en la cabecera:
+      </div>
+      <div class="row" style="gap:8px;flex-wrap:wrap;margin:8px 0"><button id="ws-ok" class="on">Token Válido</button><button id="ws-bad">Credenciales Inválidas</button><button id="ws-none">Sin Cabecera Security</button></div>
+      <pre id="ws-req" style="font-size:11.5px;height:220px"></pre>
     </div>
     <div>
-      <p class="small" style="margin-bottom:6px">Respuesta del proveedor</p>
-      <pre id="ws-res" style="font-size:12px;min-height:230px"></pre>
-      <div class="box sealb" style="margin-top:12px"><p style="margin:0;font-size:17px">Si la contraseña viaja en texto plano (<code>PasswordText</code>), el canal <b>debe</b> ser HTTPS. El perfil también admite <code>PasswordDigest</code>, que envía un resumen con fecha y número aleatorio en lugar de la clave.</p></div>
+      <p class="small" style="margin-bottom:4px">Respuesta procesada por el servidor SOAP:</p>
+      <pre id="ws-res" style="font-size:11.5px;height:220px"></pre>
+      <div class="box sealb" style="margin-top:10px"><p style="margin:0;font-size:15px"><b>Consideración de seguridad:</b> Al emplear el perfil <code>UsernameToken</code> en texto plano (PasswordText), es imprescindible forzar el cifrado de canal mediante TLS/HTTPS.</p></div>
     </div>
   </div>
   <p class="cite">OASIS (2006); W3C (2007, secc. 5.4).</p>
 </section>
 
 <!-- 18 CASO REAL -->
-<section class="slide" data-block="5" data-title="Caso real: SOAP en una ARL">
-  <h2>Caso real: SOAP en el sector de riesgos laborales</h2>
-  <p class="lead" style="margin-bottom:14px">En un proyecto para una ARL participé en dos servicios SOAP desarrollados en Java. Juntos muestran los dos roles de un servicio web.</p>
-  <svg viewBox="0 0 1130 230" width="1130" height="230" role="img" aria-label="La ARL como proveedor del servicio de recepción de facturas y como consumidor del servicio de pagos">
+<section class="slide" data-block="5" data-title="Caso Práctico de Integración SOAP">
+  <h2>Caso de estudio: Integración de servicios SOAP en ARL</h2>
+  <p class="lead" style="margin-bottom:12px">Implementación de arquitectura orientada a servicios (SOA) en el sector de riesgos laborales, ilustrando los roles de consumidor y proveedor.</p>
+  <svg viewBox="0 0 1130 210" width="1130" height="210" role="img" aria-label="La ARL como proveedor del servicio de recepción de facturas y como consumidor del servicio de pagos">
     <defs><marker id="ah4" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2E4A99"/></marker></defs>
     <g font-family="Source Sans 3, Arial" text-anchor="middle">
-      <rect x="10" y="20" width="230" height="80" rx="6" fill="#fff" stroke="#1A2330"/><text x="125" y="55" font-size="17" font-weight="700">Prestadores de salud</text><text x="125" y="78" font-size="14">envían cuentas médicas</text>
-      <rect x="450" y="60" width="230" height="110" rx="6" fill="#E3E8F6" stroke="#2E4A99" stroke-width="2"/><text x="565" y="100" font-size="18" font-weight="700">Sistema de la ARL</text><text x="565" y="124" font-size="14">Java, servicios SOAP</text><text x="565" y="144" font-size="14">WS-Security UsernameToken</text>
-      <rect x="890" y="130" width="230" height="80" rx="6" fill="#fff" stroke="#1A2330"/><text x="1005" y="165" font-size="17" font-weight="700">Sistema de pagos</text><text x="1005" y="188" font-size="14">recibe los pagos de prestaciones</text>
+      <rect x="10" y="15" width="230" height="75" rx="6" fill="#fff" stroke="#1A2330"/><text x="125" y="48" font-size="16" font-weight="700">Prestadores de Salud (IPS)</text><text x="125" y="68" font-size="13">Consumidores de la API</text>
+      <rect x="450" y="50" width="230" height="100" rx="6" fill="#E3E8F6" stroke="#2E4A99" stroke-width="2"/><text x="565" y="88" font-size="17" font-weight="700">Sistema Core ARL</text><text x="565" y="110" font-size="13">Java Enterprise / WS-Security</text>
+      <rect x="890" y="120" width="230" height="75" rx="6" fill="#fff" stroke="#1A2330"/><text x="1005" y="153" font-size="16" font-weight="700">Red Bancaria / Pagos</text><text x="1005" y="173" font-size="13">Proveedor Externo</text>
     </g>
-    <g stroke="#2E4A99" stroke-width="2.2" fill="none" marker-end="url(#ah4)"><path d="M240 60 C 340 60, 360 95, 446 100"/><path d="M680 135 C 780 140, 800 170, 886 170"/></g>
-    <g font-family="Source Sans 3, Arial" font-size="15" fill="#2E4A99" text-anchor="middle"><text x="340" y="48">recepción de facturas</text><text x="790" y="128">envío de pagos</text></g>
+    <g stroke="#2E4A99" stroke-width="2.2" fill="none" marker-end="url(#ah4)"><path d="M240 52 C 340 52, 360 88, 446 92"/><path d="M680 125 C 780 130, 800 158, 886 158"/></g>
+    <g font-family="Source Sans 3, Arial" font-size="14" fill="#2E4A99" text-anchor="middle"><text x="340" y="42">Servicio Facturación (ARL = Proveedor)</text><text x="790" y="120">Servicio Dispersión (ARL = Consumidor)</text></g>
   </svg>
-  <div class="grid2" style="margin-top:6px">
-    <div class="box soapb"><h3>La ARL como proveedor</h3><p style="margin:0">Publica el servicio y su WSDL. Los prestadores lo consumen para transferir facturas, y cada petición debe traer usuario y contraseña válidos en el Header.</p></div>
-    <div class="box soapb"><h3>La ARL como consumidor</h3><p style="margin:0">Usa el WSDL que publica otro sistema para enviarle los pagos de las prestaciones, autenticándose con las credenciales que ese sistema le asignó.</p></div>
+  <div class="grid2" style="margin-top:4px">
+    <div class="box soapb"><h3>Rol Proveedor: Servicio de Recepción</h3><p style="margin:0;font-size:16px">La ARL expone el WSDL para la radicación de cuentas médicas por parte de las IPS, validando autenticación WS-Security en cada solicitud.</p></div>
+    <div class="box soapb"><h3>Rol Consumidor: Dispersión de Pagos</h3><p style="margin:0;font-size:16px">El Core de la ARL actúa como cliente SOAP ante la plataforma bancaria, consumiendo la interfaz expuesta según las especificaciones del proveedor.</p></div>
   </div>
-  <p class="cite">Experiencia profesional de la autora. Descripción genérica: se omiten entidades, direcciones y estructuras reales de los mensajes. Roles de proveedor y consumidor: Singh et al. (2018, p. 208).</p>
+  <p class="cite">Singh et al. (2018, p. 208).</p>
 </section>
 
 <!-- 19 COMPARACIÓN -->
-<section class="slide" data-block="6" data-title="SOAP frente a REST">
-  <h2><span class="soap">SOAP</span> frente a <span class="rest">REST</span></h2>
-  <table style="width:100%;border-collapse:collapse;font-size:17px;line-height:1.35">
-    <thead><tr style="text-align:left"><th style="padding:8px 10px;border-bottom:2px solid var(--ink);width:20%"></th><th style="padding:8px 10px;border-bottom:2px solid var(--soap)" class="soap">SOAP</th><th style="padding:8px 10px;border-bottom:2px solid var(--rest)" class="rest">REST</th></tr></thead>
+<section class="slide" data-block="6" data-title="Análisis Comparativo SOAP vs REST">
+  <h2>Matriz comparativa: SOAP frente a REST</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:16px;line-height:1.35">
+    <thead><tr style="text-align:left"><th style="padding:8px 10px;border-bottom:2px solid var(--ink);width:20%">Criterio</th><th style="padding:8px 10px;border-bottom:2px solid var(--soap)" class="soap">SOAP</th><th style="padding:8px 10px;border-bottom:2px solid var(--rest)" class="rest">REST</th></tr></thead>
     <tbody>
-      <tr><td style="padding:7px 10px;border-bottom:1px solid var(--line);font-weight:600">Naturaleza</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Protocolo con reglas estrictas</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Estilo de arquitectura con pocas reglas</td></tr>
-      <tr><td style="padding:7px 10px;border-bottom:1px solid var(--line);font-weight:600">Formato</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Solo XML, en un sobre definido</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">JSON casi siempre; también XML u otros</td></tr>
-      <tr><td style="padding:7px 10px;border-bottom:1px solid var(--line);font-weight:600">Contrato</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">WSDL, parte esencial del servicio</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">OpenAPI, recomendado pero opcional</td></tr>
-      <tr><td style="padding:7px 10px;border-bottom:1px solid var(--line);font-weight:600">Operaciones</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Nombradas en el WSDL (<code>CrearCita</code>)</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Métodos HTTP sobre recursos (<code>POST /citas</code>)</td></tr>
-      <tr><td style="padding:7px 10px;border-bottom:1px solid var(--line);font-weight:600">Errores</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Elemento Fault dentro del Body</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Códigos de estado HTTP</td></tr>
-      <tr><td style="padding:7px 10px;border-bottom:1px solid var(--line);font-weight:600">Seguridad</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">WS-Security en el propio mensaje</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">HTTPS más tokens (OAuth 2.0, JWT)</td></tr>
-      <tr><td style="padding:7px 10px;border-bottom:1px solid var(--line);font-weight:600">Peso</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Más verboso y más procesamiento</td><td style="padding:7px 10px;border-bottom:1px solid var(--line)">Más liviano, ideal para móvil</td></tr>
-      <tr><td style="padding:7px 10px;font-weight:600">Donde brilla</td><td style="padding:7px 10px">Integraciones empresariales y gubernamentales con contrato exigente</td><td style="padding:7px 10px">Apps web y móviles, APIs públicas</td></tr>
+      <tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:600">Naturaleza</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Protocolo estandarizado de mensajería</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Estilo arquitectónico basado en recursos</td></tr>
+      <tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:600">Formato de datos</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Exclusivamente XML (Sobre Envelope)</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Flexibilidad (JSON, XML, HTML, Plain Text)</td></tr>
+      <tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:600">Definición de Contrato</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Mandatorio mediante WSDL / XSD</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Opcional mediante OpenAPI / Swagger</td></tr>
+      <tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:600">Modelo de interacción</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Invocación remota de procedimientos (RPC)</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Operaciones sobre recursos (Verbos HTTP)</td></tr>
+      <tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:600">Manejo de Errores</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Estructura <code>Fault</code> dentro del Body XML</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Códigos de estado HTTP nativos (2xx, 4xx, 5xx)</td></tr>
+      <tr><td style="padding:6px 10px;border-bottom:1px solid var(--line);font-weight:600">Seguridad</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">WS-Security (Nivel mensaje) + Transport TLS</td><td style="padding:6px 10px;border-bottom:1px solid var(--line)">Transport Security (TLS) + OAuth2 / JWT Tokens</td></tr>
+      <tr><td style="padding:6px 10px;font-weight:600">Escenario Óptimo</td><td style="padding:6px 10px">Sistemas empresariales, banca e integración regulada</td><td style="padding:6px 10px">Aplicaciones web, dispositivos móviles y APIs públicas</td></tr>
     </tbody>
   </table>
   <p class="cite">Singh et al. (2018, pp. 208-209); W3C (2001, 2007); OASIS (2006); Fielding (2000).</p>
 </section>
 
 <!-- 20 DECISIÓN -->
-<section class="slide" data-block="6" data-title="¿Cuál elegir?">
-  <h2>¿Cuál elegir? Depende de la pregunta</h2>
+<section class="slide" data-block="6" data-title="Criterios para la Selección de Arquitectura">
+  <h2>Árbol de decisión interactivo para la selección técnica</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
     <div>
-      <div id="dec-box" class="box" style="min-height:250px"></div>
-      <button id="dec-reset" style="margin-top:10px">Empezar de nuevo</button>
+      <div class="hint" style="margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Responda a las preguntas para obtener una recomendación arquitectónica:
+      </div>
+      <div id="dec-box" class="box" style="min-height:240px"></div>
+      <button id="dec-reset" style="margin-top:10px">Reiniciar evaluación</button>
     </div>
     <div>
-      <h3>Aplicado a AgendaYa</h3>
-      <div class="box restb" style="margin-bottom:12px"><p style="margin:0"><b>REST</b> entre el dispositivo móvil del cliente, el equipo del proveedor y el backend: respuestas livianas en JSON, caché en Redis y una API que la propia empresa controla.</p></div>
-      <div class="box soapb" style="margin-bottom:12px"><p style="margin:0"><b>SOAP</b> entre el Servicio de Reservas y la DIAN para la factura electrónica: no se elige, lo impone la contraparte.</p></div>
-      <p class="small" style="color:var(--ink)">La mayoría de las veces la pregunta decisiva no es cuál es mejor, sino <b>qué exige el sistema con el que me voy a comunicar</b>.</p>
+      <h3>Aplicación en la arquitectura de AgendaYa</h3>
+      <div class="box restb" style="margin-bottom:12px"><p style="margin:0;font-size:16px"><b>Servicios Internos / Cliente Móvil (REST):</b> Se selecciona REST/JSON debido al bajo footprint en red, facilidad de serialización en dispositivos móviles y almacenamiento en caché mediante Redis.</p></div>
+      <div class="box soapb" style="margin-bottom:12px"><p style="margin:0;font-size:16px"><b>Integración Fiscal DIAN (SOAP):</b> La selección viene condicionada por la normativa del ente regulador, exigiendo la implementación del protocolo SOAP y WS-Security.</p></div>
     </div>
   </div>
-  <p class="cite">Elaboración propia a partir de Singh et al. (2018, pp. 208-209) y de la clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">Singh et al. (2018, pp. 208-209).</p>
 </section>
 
 <!-- 21 AFUERA -->
-<section class="slide" data-block="6" data-title="La arquitectura se nota afuera">
-  <h2>La arquitectura también se nota afuera</h2>
+<section class="slide" data-block="6" data-title="Impacto en Rendimiento y UX">
+  <h2>Impacto de la arquitectura en el rendimiento y UX</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
     <div>
-      <p>La usuaria no ve si detrás hay SOAP o REST. Ve cuánto tarda la confirmación de su cita. Mueve el control para cambiar el tiempo de respuesta:</p>
-      <input type="range" id="lat" min="100" max="6000" step="100" value="300" style="width:100%;margin:14px 0" aria-label="Tiempo de respuesta en milisegundos">
-      <div style="font-family:var(--serif);font-size:44px;font-weight:700" id="lat-val">0,3 s</div>
-      <p id="lat-txt" style="min-height:90px"></p>
+      <p>La latencia de las respuestas HTTP impacta directamente la experiencia de usuario y la percepción de calidad del software.</p>
+      <div class="hint" style="margin-bottom:6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+        Ajuste el deslizador para simular el impacto de la latencia del backend:
+      </div>
+      <input type="range" id="lat" min="100" max="6000" step="100" value="300" style="width:100%;margin:12px 0" aria-label="Tiempo de respuesta en milisegundos">
+      <div style="font-family:var(--serif);font-size:40px;font-weight:700" id="lat-val">0,3 s</div>
+      <p id="lat-txt" style="min-height:80px;font-size:17px"></p>
     </div>
     <div>
-      <div class="box" style="margin-bottom:12px"><h3>Experiencia y posicionamiento</h3><p style="margin:0">Muchas mejoras de un sitio no son SEO en sentido estricto, sino de experiencia de usuario, y aun así repercuten de forma indirecta en el posicionamiento orgánico. Los buscadores, además, tienen en cuenta cuánto tiempo permanece el visitante en la página.</p></div>
-      <div class="box sealb"><h3>Decisiones que influyen</h3><p style="margin:0">Un payload JSON liviano en lugar de XML hacia el móvil, la caché de disponibilidad en Redis y PATCH en lugar de PUT cuando solo cambia un campo.</p></div>
+      <div class="box" style="margin-bottom:12px"><h3>Usabilidad e Indexación</h3><p style="margin:0;font-size:16px">Tiempos de respuesta reducidos disminuyen la tasa de rebote y optimizan la retención de usuarios. Los motores de búsqueda consideran la velocidad de carga (Core Web Vitals) como criterio de posicionamiento orgánico.</p></div>
+      <div class="box sealb"><h3>Estrategias de optimización en Backend</h3><p style="margin:0;font-size:16px">Uso de payloads JSON livianos, implementación de mecanismos de caché de segundo nivel y elección de PATCH sobre PUT en actualizaciones de bajo volumen.</p></div>
     </div>
   </div>
-  <p class="cite">Tovar (2018, pp. 52 y 72); umbrales de percepción del tiempo de respuesta: Nielsen (1993). La inmediatez como condición de una transformación digital válida: clase de la semana 6 (E. D. González Martínez, comunicación personal, 28 de septiembre de 2026).</p>
+  <p class="cite">Tovar Monge (2018, pp. 52, 72); Nielsen (1993).</p>
 </section>
 
 <!-- 22 CIERRE -->
-<section class="slide" data-block="7" data-title="Conclusiones y posición crítica">
-  <h2>Conclusiones</h2>
+<section class="slide" data-block="7" data-title="Conclusiones Téchnicas">
+  <h2>Conclusiones e implicaciones de diseño</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 30px">
-    <div><h3>No es moderno contra viejo</h3><p>SOAP y REST resuelven problemas distintos. SOAP ofrece un contrato formal y seguridad dentro del mensaje; REST ofrece ligereza y simplicidad. Juzgarlos por su edad es un error de criterio.</p></div>
-    <div><h3>Muchas veces decide la contraparte</h3><p>La DIAN impone SOAP, igual que los sistemas con los que trabajé en el sector de riesgos laborales; una app móvil propia pide REST. Un especialista necesita dominar ambos, porque en la misma aplicación conviven.</p></div>
-    <div><h3>El orden interno va primero</h3><p>Un MVC con capa de servicio decide dónde vive cada responsabilidad. Sin esa disciplina, ni SOAP ni REST salvan un diseño desordenado.</p></div>
-    <div><h3>Usuario y contraseña no bastan</h3><p>Con <code>PasswordText</code>, toda la protección de la clave depende de que el canal sea HTTPS. En REST, los tokens con vencimiento son la práctica recomendada.</p></div>
+    <div><h3>Complementariedad Tecnológica</h3><p>SOAP y REST responden a necesidades de integración distintas. SOAP prioriza el rigor del contrato y la seguridad a nivel de mensaje; REST prioriza la eficiencia, el desacoplamiento y la simplicidad.</p></div>
+    <div><h3>Condicionamiento de Entorno</h3><p>La selección arquitectónica a menudo viene determinada por sistemas legados o normativas externas (ej. DIAN o sector financiero), exigiendo que el desarrollador domine ambos paradigmas.</p></div>
+    <div><h3>Prioridad del Diseño Interno</h3><p>La separación clara de responsabilidades mediante MVC y una capa de servicio bien estructurada constituye el requisito previo para exponer servicios web mantenibles.</p></div>
+    <div><h3>Seguridad Rigurosa</h3><p>La autenticación en servicios web debe basarse en protocolos robustos (OAuth 2.0 / TLS / WS-Security). El envio de credenciales simples en payload sin cifrado de transporte representa un riesgo crítico.</p></div>
   </div>
-  <div class="box sealb" style="margin-top:14px"><p style="margin:0;font-size:21px">La inteligencia artificial puede proponer una arquitectura, pero no garantiza su calidad. Elegir entre SOAP y REST, y saber argumentar por qué, sigue siendo responsabilidad del ingeniero.</p></div>
+  <div class="box sealb" style="margin-top:16px"><p style="margin:0;font-size:19px"><b>Síntesis profesional:</b> La evaluación y fundamentación crítica de arquitecturas de software sigue siendo una competencia central del ingeniero, orientada por los requerimientos no funcionales del sistema.</p></div>
 </section>
 
 <!-- REFERENCIAS -->
-<section class="slide" data-block="8" data-title="Referencias">
-  <h2>Referencias</h2>
-  <div style="columns:2;column-gap:36px;font-size:13.5px;line-height:1.4">
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Dirección de Impuestos y Aduanas Nacionales [DIAN]. (2018). <i>Anexo técnico 5: Servicio de recepción de facturas electrónicas</i>. https://cdn.actualicese.com/normatividad/2018/Resoluciones/Anexo-5-R000001-18.pdf</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Dirección de Impuestos y Aduanas Nacionales [DIAN]. (2021). <i>Anexo técnico de documento soporte, versión 1.0</i> (Resolución 000012). https://cdn.actualicese.com/normatividad/2020/Resoluciones/Anexo-tecnico-1.0-para-documeto-soporte-compras-no-obligados-facturar.pdf</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Dusseault, L. y Snell, J. (2010). <i>PATCH method for HTTP</i> (RFC 5789). Internet Engineering Task Force. https://doi.org/10.17487/RFC5789</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Fielding, R. T. (2000). <i>Architectural styles and the design of network-based software architectures</i> [Tesis doctoral, University of California, Irvine]. https://ics.uci.edu/~fielding/pubs/dissertation/top.htm</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Fielding, R., Nottingham, M. y Reschke, J. (Eds.). (2022). <i>HTTP semantics</i> (RFC 9110). Internet Engineering Task Force. https://doi.org/10.17487/RFC9110</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Martínez López, F. J. y Gallegos Ruiz, A. (2017). <i>Programación de bases de datos relacionales</i>. RA-MA Editorial. https://elibro.net/es/ereader/uniminuto/106525</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Nielsen, J. (1993). <i>Usability engineering</i>. Academic Press.</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">OASIS. (2006). <i>Web services security: UsernameToken profile 1.1</i>. https://docs.oasis-open.org/wss/v1.1/wss-v1.1-spec-os-UsernameTokenProfile.pdf</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">OpenAPI Initiative. (2021). <i>OpenAPI specification v3.1.0</i>. https://spec.openapis.org/oas/v3.1.0</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Singh, K., Ianculescu, A. y Torje, L.-P. (2018). <i>Design patterns and best practices in Java</i>. Packt Publishing. http://ebookcentral.proquest.com/lib/bibliouniminuto-ebooks/detail.action?docID=5439461</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">Tovar Monge, R. (2018). <i>Posicionamiento web para todos</i> (2.ª ed.). RA-MA Editorial. https://elibro.net/es/ereader/uniminuto/106510</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">World Wide Web Consortium [W3C]. (2001). <i>Web services description language (WSDL) 1.1</i>. https://www.w3.org/TR/wsdl</p>
-    <p style="font-size:13.5px;padding-left:22px;text-indent:-22px;break-inside:avoid">World Wide Web Consortium [W3C]. (2007). <i>SOAP version 1.2 part 1: Messaging framework</i> (2.ª ed.). https://www.w3.org/TR/soap12-part1/</p>
+<section class="slide" data-block="8" data-title="Referencias Bibliográficas">
+  <h2>Referencias bibliográficas (APA 7.ª ed.)</h2>
+  <div style="columns:2;column-gap:36px;font-size:13px;line-height:1.4">
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Dirección de Impuestos y Aduanas Nacionales. (2018). <i>Anexo técnico 5: Servicio de recepción de facturas electrónicas</i>. https://cdn.actualicese.com/normatividad/2018/Resoluciones/Anexo-5-R000001-18.pdf</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Dirección de Impuestos y Aduanas Nacionales. (2021). <i>Anexo técnico de documento soporte, versión 1.0</i> (Resolución 000012). https://cdn.actualicese.com/normatividad/2020/Resoluciones/Anexo-tecnico-1.0-para-documeto-soporte-compras-no-obligados-facturar.pdf</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Dusseault, L., & Snell, J. (2010). <i>PATCH method for HTTP</i> (RFC 5789). Internet Engineering Task Force. https://doi.org/10.17487/RFC5789</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Fielding, R. T. (2000). <i>Architectural styles and the design of network-based software architectures</i> [Tesis doctoral, University of California, Irvine]. California Digital Library.</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Fielding, R., Nottingham, M., & Reschke, J. (Eds.). (2022). <i>HTTP semantics</i> (RFC 9110). Internet Engineering Task Force. https://doi.org/10.17487/RFC9110</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Martínez López, F. J., & Gallegos Ruiz, A. (2017). <i>Programación de bases de datos relacionales</i>. RA-MA Editorial.</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Nielsen, J. (1993). <i>Usability engineering</i>. Academic Press.</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">OASIS. (2006). <i>Web services security: UsernameToken profile 1.1</i>. https://docs.oasis-open.org/wss/v1.1/wss-v1.1-spec-os-UsernameTokenProfile.pdf</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">OpenAPI Initiative. (2021). <i>OpenAPI specification v3.1.0</i>. https://spec.openapis.org/oas/v3.1.0</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Singh, K., Ianculescu, A., & Torje, L.-P. (2018). <i>Design patterns and best practices in Java</i>. Packt Publishing.</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Tovar Monge, R. (2018). <i>Posicionamiento web para todos</i> (2.ª ed.). RA-MA Editorial.</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">World Wide Web Consortium. (2001). <i>Web services description language (WSDL) 1.1</i>. https://www.w3.org/TR/wsdl</p>
+    <p style="padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">World Wide Web Consortium. (2007). <i>SOAP version 1.2 part 1: Messaging framework</i> (2.ª ed.). https://www.w3.org/TR/soap12-part1/</p>
   </div>
 </section>
 
@@ -622,25 +685,25 @@ paths:
   <button id="next" aria-label="Diapositiva siguiente">Siguiente</button>
   <button id="idx-btn">Índice</button>
 </nav>
-<div id="index" class="noprint" role="dialog" aria-label="Índice de diapositivas"><h2>Índice</h2><ol id="index-list"></ol></div>
+<div id="index" class="noprint" role="dialog" aria-label="Índice de diapositivas"><h2>Índice de Contenido</h2><ol id="index-list"></ol></div>
 <script>
 (function(){
 const slides=[...document.querySelectorAll('.slide')];
-const blocks=['','Introducción','Bloque 1. MVC como base','Bloque 2. Servicio web','Bloque 3. REST','Bloque 4. SOAP','Bloque 5. Decidir','Cierre','Referencias'];
+const blocks=['','Introducción','Bloque 1: Patrón MVC','Bloque 2: Servicios Web','Bloque 3: Arquitectura REST','Bloque 4: Protocolo SOAP','Bloque 5: Criterios de Selección','Cierre','Referencias'];
 const total=slides.length;
-// numeración: la portada y las referencias no cuentan
+
 slides.forEach((s,i)=>{
   if(i===0) return;
   const b=+s.dataset.block;
   const tb=document.createElement('div');tb.className='topbar';
   const num = (i<total-1) ? `Diapositiva ${i} de ${total-2}` : '';
-  tb.innerHTML=`<span><b>Un contrato, dos idiomas</b> &nbsp;|&nbsp; ${blocks[b]}</span><span>${num}</span>`;
+  tb.innerHTML=`<span><b>Servicios Web SOAP y REST</b> &nbsp;|&nbsp; ${blocks[b]} <span class="interactive-badge">PROTOTIPO INTERACTIVO</span></span><span>${num}</span>`;
   s.prepend(tb);
 });
 const prog=document.getElementById('progress');
 for(let b=1;b<=7;b++){const sp=document.createElement('span');sp.dataset.b=b;sp.innerHTML='<i></i>';prog.appendChild(sp);}
 const list=document.getElementById('index-list');
-slides.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<a href="#${i}">${i===0?'Portada':(i===total-1?'Referencias':i+'. '+s.dataset.title)}</a>`;list.appendChild(li);});
+slides.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<a href="#${i}">${i===0?'Portada':(i===total-1?'Referencias Bibliográficas':i+'. '+s.dataset.title)}</a>`;list.appendChild(li);});
 let cur=0;
 function show(n){
   cur=Math.max(0,Math.min(total-1,n));
@@ -675,37 +738,37 @@ const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
 /* 1. Detrás de un clic */
 const pasosClic=[
- {n:0,x:80,y:145,t:'La app arma la petición <code>POST /v1/citas</code> con los datos de la cita y el token.',ms:0},
- {n:1,x:260,y:145,t:'El API Gateway (NGINX) la recibe y decide a qué servicio enviarla.',ms:12},
- {n:2,x:450,y:55,t:'El Servicio de Autenticación valida el token: ¿quién está pidiendo esto?',ms:25},
- {n:3,x:450,y:235,t:'El Servicio de Reservas aplica las reglas: ¿el horario sigue libre?',ms:40},
- {n:4,x:645,y:235,t:'PostgreSQL guarda la cita.',ms:28},
- {n:5,x:790,y:110,t:'La respuesta vuelve con el código 201 Created y la cita en JSON.',ms:15}];
+ {n:0,x:80,y:135,t:'Cliente móvil construye la petición <code>POST /v1/citas</code> encapsulando el JSON Payload.',ms:0},
+ {n:1,x:260,y:135,t:'API Gateway (NGINX) intercepta la petición y aplica reglas de enrutamiento.',ms:12},
+ {n:2,x:450,y:50,t:'Servicio de Autenticación valida la firma del JWT Bearer Token.',ms:25},
+ {n:3,x:450,y:225,t:'Servicio de Citas evalúa la disponibilidad del horario solicitado.',ms:40},
+ {n:4,x:645,y:225,t:'PostgreSQL efectúa la transacción de inserción en la base de datos.',ms:28},
+ {n:5,x:790,y:100,t:'El servidor retorna la respuesta HTTP 201 Created con la entidad generada.',ms:15}];
 let clicBusy=false;
 $('clic-btn').onclick=async()=>{
   if(clicBusy) return; clicBusy=true;
   const dot=$('clic-dot'),log=$('clic-log');log.innerHTML='';dot.style.opacity=1;
   document.querySelectorAll('.cnode rect').forEach(r=>r.setAttribute('fill','#fff'));
-  $('clic-estado').textContent='Procesando…';
+  $('clic-estado').textContent='Simulando procesamiento en backend…';
   let acc=0; const red=matchMedia('(prefers-reduced-motion: reduce)').matches;
   for(const p of pasosClic){
     acc+=p.ms; dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);
     document.querySelector('#cn'+p.n+' rect').setAttribute('fill','#DDF1EB');
     const li=document.createElement('li');li.innerHTML=`${p.t} <span class="small">(${acc} ms acumulados)</span>`;log.appendChild(li);
-    await new Promise(r=>setTimeout(r,red?60:650));
+    await new Promise(r=>setTimeout(r,red?60:600));
   }
-  $('clic-estado').innerHTML='<b class="rest">Cita confirmada.</b> Para la usuaria fue un toque; por dentro participaron cinco componentes.';
+  $('clic-estado').innerHTML='<b class="rest">Procesamiento finalizado (201 Created).</b> Coordinación exitosa entre 5 componentes de backend.';
   clicBusy=false;
 };
 
 /* 4. Flujo */
 const flujo=[
- ['1. La acción','La usuaria toca "Reservar". La app envía una petición HTTP <code>POST /v1/citas</code> con los datos en JSON.'],
- ['2. El router','Toda petición entra por un único punto, el front controller (en Spring MVC, el DispatcherServlet). Según la ruta y el método, decide qué controlador la atiende: no hay uno solo, hay muchos.'],
- ['3. El controlador','<code>CitaController</code> recibe la petición, revisa que llegue completa y bien formada, y delega. No calcula ni consulta: coordina.'],
- ['4. El servicio','La capa de servicio aplica las reglas de negocio: ¿el horario está libre?, ¿el cliente tiene citas pendientes? Allí también se decide si hay que llamar a un servicio externo.'],
- ['5. Modelo y servicios externos','El modelo persiste la cita en PostgreSQL. Si hace falta, el servicio consume otro sistema, por ejemplo la pasarela de pagos.'],
- ['6. La respuesta','El controlador elige la respuesta: en una API, un <code>201 Created</code> con la cita en JSON; en una aplicación tradicional, una vista HTML.']];
+ ['1. Petición del Cliente','El cliente HTTP emite una solicitud <code>POST /v1/citas</code> transportando los datos del recurso en formato JSON.'],
+ ['2. Enrutamiento Front Controller','El <code>DispatcherServlet</code> intercepta la solicitud y la deriva al controlador mapped correspondiente.'],
+ ['3. Intercepción en Controlador','El <code>CitaController</code> valida el formato del payload y delega la ejecución a la capa de servicio.'],
+ ['4. Lógica de Dominio en Servicio','La capa <code>CitaService</code> ejecuta las validaciones de negocio e invoca la capa de persistencia.'],
+ ['5. Persistencia y Servicios Externos','El repositorio interactúa con la base de datos PostgreSQL y coordina llamados con API externas si aplica.'],
+ ['6. Serialización de Respuesta','El controlador emite el código <code>201 Created</code> junto al payload JSON resultante.']];
 let fi=0;
 function drawFlujo(){
   $('flujo-txt').innerHTML=`<h3>${flujo[fi][0]}</h3><p style="margin:0">${flujo[fi][1]}</p>`;
@@ -719,74 +782,75 @@ drawFlujo();
 const codeMal=`@PostMapping("/v1/citas")
 public ResponseEntity&lt;?&gt; crear(@RequestBody CitaDTO dto) {
     if (dto.getHora() == null) return badRequest();
-    Usuario u = jdbc.query("SELECT * FROM usuarios
-                 WHERE token = '" + token + "'");   <span class="err">// inyección SQL</span>
+    // Vulnerabilidad de acoplamiento y SQL Injection:
+    Usuario u = jdbc.query("SELECT * FROM usuarios WHERE token = '" + token + "'");
     List&lt;Cita&gt; ocupadas = repo.findByFecha(dto.getFecha());
     for (Cita c : ocupadas) {
-        if (c.getHora().equals(dto.getHora()))
-            return conflict();
+        if (c.getHora().equals(dto.getHora())) return conflict();
     }
-    double deposito = dto.getPrecio() * 0.20;   <span class="err">// regla de negocio aquí</span>
+    double deposito = dto.getPrecio() * 0.20; // Lógica de negocio acoplada
     pagos.cobrar(u, deposito);
     Cita nueva = repo.save(new Cita(dto, u));
     correo.enviar(u.getEmail(), "Cita confirmada");
     return status(201).body(nueva);
-}  <span class="err">// valida, consulta, calcula, cobra y notifica</span>`;
+} // Antipatrón: Controlador acumula validación, persistencia y lógica de negocio`;
+
 const codeBien=`@PostMapping("/v1/citas")
 public ResponseEntity&lt;CitaDTO&gt; crear(
         @Valid @RequestBody NuevaCitaDTO dto,
         @AuthenticationPrincipal Usuario usuario) {
+    // Controlador delgado: delega la lógica de negocio a la capa de servicio
     CitaDTO creada = servicioReservas.reservar(dto, usuario);
     return ResponseEntity.status(201).body(creada);
 }
-<span class="rest">// El controlador recibe y responde, como un mesero.</span>
-<span class="rest">// ServicioReservas aplica las reglas, como la cocina:</span>
-<span class="rest">//   verificarDisponibilidad(), calcularDeposito(),</span>
-<span class="rest">//   cobrar() y notificar().</span>
-<span class="rest">// La autenticación la resuelve un filtro de seguridad,</span>
-<span class="rest">// no el controlador.</span>`;
+/*
+ * Arquitectura limpia:
+ * - CitaService centraliza reglas de negocio y transaccionalidad.
+ * - Filtro de seguridad maneja la autenticación previo al controlador.
+ */`;
 function mvc(b){$('mvc-code').innerHTML=b?codeBien:codeMal;$('mvc-bien').classList.toggle('on',b);$('mvc-mal').classList.toggle('on',!b);}
 $('mvc-mal').onclick=()=>mvc(false);$('mvc-bien').onclick=()=>mvc(true);mvc(false);
 
 /* 7. E-R */
 const er={
- cliente:['Entidad Cliente → recurso <code>/v1/clientes</code>','Cada entidad, un objeto que existe y se distingue de otros, se vuelve un recurso con nombre en plural. Su clave identifica a cada uno: <code>/v1/clientes/1042</code>.'],
- cita:['Entidad Cita → recurso <code>/v1/citas</code>','Es el recurso central de AgendaYa. Sobre él se aplican GET, POST, PUT, PATCH y DELETE.'],
- atiende:['Relación M:1 → otra ruta anidada','Muchas citas pertenecen a un mismo proveedor. La agenda de un negocio se consulta con <code>GET /v1/proveedores/{id}/citas</code>.'],
- proveedor:['Entidad Proveedor → recurso <code>/v1/proveedores</code>','La relación M:1 con Cita permite consultar la agenda de un negocio: <code>/v1/proveedores/{id}/citas</code>.'],
- reserva:['Relación 1:M → ruta anidada','Un cliente reserva muchas citas y cada cita pertenece a un cliente. Esa cardinalidad se expresa como ruta anidada: <code>GET /v1/clientes/1042/citas</code>.'],
- atributos:['Atributos → campos del JSON','Las propiedades de la entidad son los campos del cuerpo: <code>{"fecha": "2026-10-15", "hora": "10:30"}</code>. Las restricciones de integridad, como la obligatoriedad o la unicidad, se convierten en validaciones que responden <code>400</code> o <code>409</code>.']};
+ cliente:['Entidad Cliente → Recurso <code>/v1/clientes</code>','La entidad de dominio se proyecta como una colección de recursos. La identificación única se gestiona vía URI: <code>/v1/clientes/1042</code>.'],
+ cita:['Entidad Cita → Recurso <code>/v1/citas</code>','Constituye el recurso principal del sistema, sobre el cual se ejecutan operaciones con verbos HTTP estándar.'],
+ atiende:['Relación M:1 → Enrutamiento anidado','Permite la consulta de la agenda asociada a un proveedor mediante la estructura <code>GET /v1/proveedores/{id}/citas</code>.'],
+ proveedor:['Entidad Proveedor → Recurso <code>/v1/proveedores</code>','Representa la entidad de servicios expuesta en el modelo REST.'],
+ reserva:['Relación 1:M → Sub-recurso REST','Expresa la cardinalidad cliente-citas mediante jerarquía de URIs: <code>GET /v1/clientes/1042/citas</code>.'],
+ atributos:['Atributos → Propiedades del Payload','Los atributos del modelo E-R se mapean a las propiedades del objeto JSON. Las restricciones de integridad generan respuestas HTTP 400 o 409.']};
 document.querySelectorAll('.er').forEach(g=>{const f=()=>{const d=er[g.dataset.er];$('er-txt').innerHTML=`<h3>${d[0]}</h3><p style="margin:0">${d[1]}</p>`;document.querySelectorAll('.er rect,.er polygon,.er ellipse').forEach(x=>x.setAttribute('fill','#fff'));g.querySelector('rect,polygon,ellipse').setAttribute('fill','#DDF1EB');};g.addEventListener('click',f);g.addEventListener('keydown',e=>{if(e.key==='Enter')f();});g.style.cursor='pointer';});
 
 /* 9. Métodos */
 const met={
- GET:['Consultar','Pide una representación del recurso. No debe cambiar nada en el servidor.',true,true,'Si alguien lo usa para borrar datos, rompe el contrato: los navegadores y cachés pueden repetir un GET cuando quieran.',`GET /v1/citas/587
+ GET:['Consultar Recurso','Solicita la representación de un recurso específico. No debe generar efectos secundarios en el servidor (Safe Method).',true,true,'Garantiza la seguridad e idempotencia. Puede ser almacenado en caché por intermediarios de red.',`GET /v1/citas/587 HTTP/1.1
+Host: api.agendaya.co
 
-→ 200 OK
-{ "id": 587, "hora": "10:30",
-  "estado": "confirmada" }`],
- POST:['Crear o enviar','Envía datos para que el servidor los procese; por convención, crea un recurso nuevo cuya dirección devuelve.',false,false,'Repetir un POST puede crear dos citas iguales. Por eso las apps desactivan el botón después del primer toque.',`POST /v1/citas
-{ "cliente": 1042, "servicio": "Corte",
-  "fecha": "2026-10-15", "hora": "10:30" }
+→ HTTP/1.1 200 OK
+Content-Type: application/json
+{ "id": 587, "hora": "10:30", "estado": "confirmada" }`],
+ POST:['Crear / Procesar Payload','Envía datos al servidor para la creación de un nuevo recurso o procesamiento de una orden. No es seguro ni idempotente.',false,false,'Ejecuciones repetidas pueden generar múltiples recursos en el servidor.',`POST /v1/citas HTTP/1.1
+Content-Type: application/json
+{ "cliente": 1042, "servicio": "Corte", "fecha": "2026-10-15", "hora": "10:30" }
 
-→ 201 Created
+→ HTTP/1.1 201 Created
 Location: /v1/citas/588`],
- PUT:['Reemplazar','Envía la representación completa y reemplaza el recurso. Si falta un campo, se pierde.',false,true,'Es idempotente: enviarlo una o diez veces deja el mismo resultado.',`PUT /v1/citas/587
-{ "cliente": 1042, "servicio": "Corte",
-  "fecha": "2026-10-15", "hora": "11:00",
-  "estado": "confirmada" }
+ PUT:['Reemplazar Recurso','Reemplaza la totalidad del recurso target con el payload suministrado. Es idempotente.',false,true,'Si omiten campos en el payload, el servidor actualizará el recurso con valores nulos o por defecto.',`PUT /v1/citas/587 HTTP/1.1
+Content-Type: application/json
+{ "cliente": 1042, "servicio": "Corte", "fecha": "2026-10-15", "hora": "11:00", "estado": "confirmada" }
 
-→ 200 OK`],
- PATCH:['Modificar parcialmente','Envía solo los cambios. Definido aparte en el RFC 5789.',false,false,'No es idempotente por definición: depende de cómo se escriba el cambio (lo vemos en la siguiente diapositiva).',`PATCH /v1/citas/587
+→ HTTP/1.1 200 OK`],
+ PATCH:['Modificación Parcial','Aplica modificaciones parciales a un recurso existente (RFC 5789).',false,false,'No garantiza idempotencia por definición, dependiendo de la naturaleza de las operaciones delta especificadas.',`PATCH /v1/citas/587 HTTP/1.1
+Content-Type: application/json
 { "hora": "11:00" }
 
-→ 200 OK`],
- DELETE:['Eliminar','Pide eliminar el recurso.',false,true,'Es idempotente: después del primer DELETE, la cita ya no existe y seguir pidiéndolo no cambia nada (aunque la respuesta pueda ser 404).',`DELETE /v1/citas/587
+→ HTTP/1.1 200 OK`],
+ DELETE:['Eliminar Recurso','Solicita la remoción del recurso especificado en la URI.',false,true,'Su ejecución repetida mantiene el estado del servidor (el recurso permanece eliminado).',`DELETE /v1/citas/587 HTTP/1.1
 
-→ 204 No Content`]};
-function drawMet(m){const d=met[m];$('met-nombre').textContent=`${m}: ${d[0]}`;$('met-desc').textContent=d[1];
-  $('met-seguro').textContent=d[2]?'Seguro: no modifica':'No seguro: modifica';$('met-seguro').style.color=d[2]?'var(--rest)':'var(--err)';
-  $('met-idem').textContent=d[3]?'Idempotente':'No idempotente';$('met-idem').style.color=d[3]?'var(--rest)':'var(--err)';
+→ HTTP/1.1 204 No Content`]};
+function drawMet(m){const d=met[m];$('met-nombre').textContent=`Método HTTP ${m}: ${d[0]}`;$('met-desc').textContent=d[1];
+  $('met-seguro').textContent=d[2]?'Seguro (Safe)':'No Seguro (Unsafe)';$('met-seguro').style.color=d[2]?'var(--rest)':'var(--err)';
+  $('met-idem').textContent=d[3]?'Idempotente':'No Idempotente';$('met-idem').style.color=d[3]?'var(--rest)':'var(--err)';
   $('met-nota').textContent=d[4];$('met-ej').textContent=d[5];
   document.querySelectorAll('#met-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));}
 document.querySelectorAll('#met-tabs button').forEach(b=>b.onclick=()=>drawMet(b.dataset.m));drawMet('GET');
@@ -794,27 +858,27 @@ document.querySelectorAll('#met-tabs button').forEach(b=>b.onclick=()=>drawMet(b
 /* 10. PUT vs PATCH */
 const base={id:587,cliente:1042,servicio:'Corte',fecha:'2026-10-15',hora:'10:30',estado:'confirmada'};
 let cita,nPet,last;
-function ppReset(){cita={...base};nPet=0;last=null;ppDraw('Estado inicial. Envía cada petición dos veces y compara.');}
-function ppDraw(msg){$('pp-estado').textContent=JSON.stringify(cita,null,2);$('pp-cont').textContent='Peticiones enviadas: '+nPet;$('pp-msg').innerHTML=msg;}
+function ppReset(){cita={...base};nPet=0;last=null;ppDraw('Estado inicial del recurso restablecido.');}
+function ppDraw(msg){$('pp-estado').textContent=JSON.stringify(cita,null,2);$('pp-cont').textContent='Peticiones procesadas: '+nPet;$('pp-msg').innerHTML=msg;}
 function sumar(h,m){let [a,b]=h.split(':').map(Number);let t=a*60+b+m;return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
 function rep(tipo){const r=last===tipo;last=tipo;return r;}
-$('pp-put').onclick=()=>{nPet++;const r=rep('put');cita={id:587,cliente:1042,servicio:'Corte',fecha:'2026-10-15',hora:'11:00',estado:'confirmada'};ppDraw(r?'<b>Segundo PUT idéntico:</b> el recurso quedó exactamente igual. Eso es idempotencia.':'PUT reemplazó la cita completa con la versión enviada.');};
-$('pp-patch').onclick=()=>{nPet++;const r=rep('patch');cita.hora='11:00';ppDraw(r?'<b>Segundo PATCH absoluto:</b> igual que antes. Este PATCH resultó idempotente porque fija un valor.':'PATCH cambió solo la hora; el resto de la cita no viajó.');};
-$('pp-rel').onclick=()=>{nPet++;const r=rep('rel');cita.hora=sumar(cita.hora,30);ppDraw(r?'<b class="err">Segundo PATCH relativo: la hora volvió a moverse.</b> Este PATCH no es idempotente. Si la red reintenta la petición, la cita queda mal.':'PATCH relativo sumó 30 minutos a la hora actual.');};
+$('pp-put').onclick=()=>{nPet++;const r=rep('put');cita={id:587,cliente:1042,servicio:'Corte',fecha:'2026-10-15',hora:'11:00',estado:'confirmada'};ppDraw(r?'<b>Ejecución PUT repetida:</b> El estado del recurso permanece idéntico. Se evidencia idempotencia.':'PUT reemplazó la representación completa de la entidad.');};
+$('pp-patch').onclick=()=>{nPet++;const r=rep('patch');cita.hora='11:00';ppDraw(r?'<b>PATCH absoluto repetido:</b> Mantiene el valor asignado. En esta implementación se comporta de forma idempotente.':'PATCH modificó únicamente la propiedad especificada.');};
+$('pp-rel').onclick=()=>{nPet++;const r=rep('rel');cita.hora=sumar(cita.hora,30);ppDraw(r?'<b class="err">PATCH relativo repetido: La hora se incrementó nuevamente.</b> Demuestra la NO idempotencia de operaciones delta relativas.':'PATCH relativo adicionó 30 minutos al estado actual.');};
 $('pp-reset').onclick=ppReset;ppReset();
 
 /* 11. Códigos */
-const cods=[['200','OK','La consulta funcionó.','GET /v1/citas/587 encuentra la cita.','rest'],
- ['201','Created','Se creó un recurso nuevo.','POST /v1/citas crea la reserva.','rest'],
- ['204','No Content','Éxito sin nada que devolver.','DELETE /v1/citas/587 cancela la cita.','rest'],
- ['400','Bad Request','La petición está mal formada o le faltan datos.','POST sin el campo "hora".','err'],
- ['401','Unauthorized','No hay credenciales o no son válidas: ¿quién eres?','Petición sin token o con el token vencido.','err'],
- ['403','Forbidden','Se sabe quién eres, pero no tienes permiso.','Un cliente intenta ver citas de otro cliente.','err'],
- ['404','Not Found','El recurso no existe.','GET /v1/citas/999.','err'],
- ['409','Conflict','Choca con el estado actual del recurso.','Reservar un horario que ya está ocupado.','err'],
- ['500','Internal Server Error','Falló el servidor, no el cliente.','Una excepción no controlada en el Servicio de Reservas.','err']];
+const cods=[['200','OK','Solicitud procesada exitosamente.','GET /v1/citas/587 retorna el detalle.','rest'],
+ ['201','Created','Recurso creado satisfactoriamente.','POST /v1/citas genera la reserva.','rest'],
+ ['204','No Content','Operación exitosa sin cuerpo de respuesta.','DELETE /v1/citas/587 elimina el recurso.','rest'],
+ ['400','Bad Request','Sintaxis inválida o error en validación de datos.','Payload POST carece de campos obligatorios.','err'],
+ ['401','Unauthorized','Credenciales de autenticación ausentes o inválidas.','Solicitud sin JWT Bearer Token.','err'],
+ ['403','Forbidden','Autenticación válida pero permisos insuficientes.','Cliente intenta modificar registros ajenos.','err'],
+ ['404','Not Found','El recurso especificado no existe.','GET /v1/citas/999.','err'],
+ ['409','Conflict','Conflicto con el estado actual del recurso.','Intento de reserva en horario previamente asignado.','err'],
+ ['500','Internal Error','Excepción no controlada en el servidor.','Fallo de conexión en el servidor de base de datos.','err']];
 const ch=$('cod-chips');
-cods.forEach(c=>{const b=document.createElement('button');b.textContent=c[0];b.style.borderColor=`var(--${c[4]})`;b.style.color=`var(--${c[4]})`;b.onclick=()=>{[...ch.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');b.style.color='';$('cod-txt').innerHTML=`<h3 class="${c[4]}">${c[0]} ${c[1]}</h3><p style="margin:0 0 6px">${c[2]}</p><p class="small" style="margin:0">En AgendaYa: ${c[3]}</p>`;[...ch.children].forEach((x,i)=>{if(x!==b)x.style.color=`var(--${cods[i][4]})`;});};ch.appendChild(b);});
+cods.forEach(c=>{const b=document.createElement('button');b.textContent=c[0];b.style.borderColor=`var(--${c[4]})`;b.style.color=`var(--${c[4]})`;b.onclick=()=>{[...ch.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');b.style.color='';$('cod-txt').innerHTML=`<h3 class="${c[4]}">HTTP ${c[0]} ${c[1]}</h3><p style="margin:0 0 6px">${c[2]}</p><p class="small" style="margin:0">Contexto: ${c[3]}</p>`;[...ch.children].forEach((x,i)=>{if(x!==b)x.style.color=`var(--${cods[i][4]})`;});};ch.appendChild(b);});
 ch.children[0].click();
 
 /* 12. Simulador REST */
@@ -822,48 +886,45 @@ let db;
 function dbReset(){db={587:{id:587,cliente:1042,servicio:'Corte',fecha:'2026-10-15',hora:'10:30',estado:'confirmada'},601:{id:601,cliente:2210,servicio:'Manicure',fecha:'2026-10-16',hora:'15:00',estado:'confirmada'}};}
 dbReset();let nextId=602;
 const bodies={GET:'',DELETE:'',POST:'{\n  "cliente": 1042,\n  "servicio": "Masaje",\n  "fecha": "2026-10-20",\n  "hora": "09:00"\n}',PUT:'{\n  "cliente": 1042,\n  "servicio": "Corte",\n  "fecha": "2026-10-15",\n  "hora": "11:00",\n  "estado": "confirmada"\n}',PATCH:'{\n  "hora": "11:30"\n}'};
-function setBody(){const m=$('sim-met').value;$('sim-body').value=bodies[m];$('sim-body').disabled=(m==='GET'||m==='DELETE');}
-$('sim-met').onchange=setBody;setBody();
-function resp(code,txt,obj,extra){let h=`<span class="${code<300?'rest':'err'}">HTTP/1.1 ${code} ${txt}</span>\n`;h+=extra||'';if(obj!==undefined){h+='Content-Type: application/json\n\n'+esc(JSON.stringify(obj,null,2));}$('sim-res').innerHTML=h;}
-$('sim-send').onclick=()=>{
+function setBody(){const m=$('sim-met').value;$('sim-body').value=bodies[m];$('sim-body').disabled=(m==='GET'\vert{}\vert{}m==='DELETE');}$('sim-met').onchange=setBody;setBody();
+function resp(code,txt,obj,extra){let h=`<span class="${code<300?'rest':'err'}">HTTP/1.1 ${code} ${txt}</span>\n`;h+=extra||'';if(obj!==undefined){h+='Content-Type: application/json\n\n'+esc(JSON.stringify(obj,null,2));}$('sim-res').innerHTML=h;}$('sim-send').onclick=()=>{
   const m=$('sim-met').value,r=$('sim-ruta').value;
-  if(!$('sim-token').checked) return resp(401,'Unauthorized',{error:'Falta el token. Incluye la cabecera Authorization: Bearer <token>.'},'WWW-Authenticate: Bearer\n');
+  if(!$('sim-token').checked) return resp(401,'Unauthorized',{error:'Cabecera Authorization ausente o token no válido.'},'WWW-Authenticate: Bearer realm="Access to AgendaYa API"\n');
   let body=null;
-  if(m==='POST'||m==='PUT'||m==='PATCH'){try{body=JSON.parse($('sim-body').value);}catch(e){return resp(400,'Bad Request',{error:'El cuerpo no es un JSON válido.'});}}
+  if(m==='POST'||m==='PUT'||m==='PATCH'){try{body=JSON.parse($('sim-body').value);}catch(e){return resp(400,'Bad Request',{error:'Sintaxis JSON inválida en el payload enviado.'});}}
   const mid=r.match(/^\/v1\/citas\/(\d+)$/);
   if(r==='/v1/citas'){
     if(m==='GET') return resp(200,'OK',Object.values(db));
-    if(m==='POST'){for(const k of ['cliente','servicio','fecha','hora']) if(!body[k]) return resp(400,'Bad Request',{error:`Falta el campo obligatorio "${k}".`});
-      if(Object.values(db).some(c=>c.fecha===body.fecha&&c.hora===body.hora)) return resp(409,'Conflict',{error:'Ese horario ya está reservado.'});
+    if(m==='POST'){for(const k of ['cliente','servicio','fecha','hora']) if(!body[k]) return resp(400,'Bad Request',{error:`Atributo obligatorio ausente: "${k}".`});
+      if(Object.values(db).some(c=>c.fecha===body.fecha&&c.hora===body.hora)) return resp(409,'Conflict',{error:'El horario solicitado no se encuentra disponible.'});
       const n={id:nextId++,...body,estado:'confirmada'};db[n.id]=n;return resp(201,'Created',n,`Location: /v1/citas/${n.id}\n`);}
-    return resp(405,'Method Not Allowed',{error:`${m} no aplica a la colección completa.`},'Allow: GET, POST\n');
+    return resp(405,'Method Not Allowed',{error:`El método ${m} no está soportado en esta colección.`},'Allow: GET, POST\n');
   }
-  if(r==='/v1/clientes/1042/citas'){ if(m!=='GET') return resp(405,'Method Not Allowed',{error:'Esta ruta solo admite GET.'},'Allow: GET\n'); return resp(200,'OK',Object.values(db).filter(c=>c.cliente===1042)); }
+  if(r==='/v1/clientes/1042/citas'){ if(m!=='GET') return resp(405,'Method Not Allowed',{error:'Recurso de consulta exclusivo para método GET.'},'Allow: GET\n'); return resp(200,'OK',Object.values(db).filter(c=>c.cliente===1042)); }
   if(mid){const id=+mid[1];const c=db[id];
-    if(m==='POST') return resp(405,'Method Not Allowed',{error:'Para crear, usa POST /v1/citas.'},'Allow: GET, PUT, PATCH, DELETE\n');
-    if(!c) return resp(404,'Not Found',{error:`La cita ${id} no existe.`});
+    if(m==='POST') return resp(405,'Method Not Allowed',{error:'Operación POST no permitida sobre recurso individual.'},'Allow: GET, PUT, PATCH, DELETE\n');
+    if(!c) return resp(404,'Not Found',{error:`El recurso identificador ${id} no existe.`});
     if(m==='GET') return resp(200,'OK',c);
-    if(m==='DELETE'){delete db[id];$('sim-res').innerHTML='<span class="rest">HTTP/1.1 204 No Content</span>\n\n(sin cuerpo: la cita fue cancelada)';return;}
-    if(m==='PUT'){for(const k of ['cliente','servicio','fecha','hora','estado']) if(!body[k]) return resp(400,'Bad Request',{error:`PUT reemplaza el recurso completo: falta "${k}".`});db[id]={id,...body};return resp(200,'OK',db[id]);}
+    if(m==='DELETE'){delete db[id];$('sim-res').innerHTML='<span class="rest">HTTP/1.1 204 No Content</span>\n\n(Recurso eliminado satisfactoriamente)';return;}
+    if(m==='PUT'){for(const k of ['cliente','servicio','fecha','hora','estado']) if(!body[k]) return resp(400,'Bad Request',{error:`PUT requiere payload completo. Ausente: "${k}".`});db[id]={id,...body};return resp(200,'OK',db[id]);}
     if(m==='PATCH'){db[id]={...c,...body,id};return resp(200,'OK',db[id]);}
   }
 };
-$('sim-reset').onclick=()=>{dbReset();nextId=602;$('sim-res').textContent='Datos reiniciados.';};
-$('sim-res').textContent='Elige un método y una ruta, y envía la petición.';
+$('sim-reset').onclick=()=>{dbReset();nextId=602;$('sim-res').textContent='Base de datos simulada restablecida.';};$('sim-res').textContent='Configure los parámetros de la solicitud y presione "Enviar petición".';
 
 /* 13. Versionado */
-$('ver-mal').onclick=()=>{$('ver-txt').innerHTML='<p style="margin:0" class="err"><b>La app instalada se rompe.</b></p><p class="small" style="margin:6px 0 0;color:var(--ink)">Busca <code>hora</code>, recibe <code>horaInicio</code> y muestra citas sin hora. Ningún usuario actualizó nada, pero el contrato cambió bajo sus pies.</p>';};
-$('ver-bien').onclick=()=>{$('ver-txt').innerHTML='<p style="margin:0" class="rest"><b>Las dos versiones conviven.</b></p><p class="small" style="margin:6px 0 0;color:var(--ink)">La app actual sigue usando <code>/v1/citas</code>; las nuevas versiones usan <code>/v2/citas</code>. Cuando casi nadie use la v1, se anuncia su retiro.</p>';};
+$('ver-mal').onclick=()=>{$('ver-txt').innerHTML='<p style="margin:0" class="err"><b>Fallo de compatibilidad (Breaking Change).</b></p><p class="small" style="margin:4px 0 0;color:var(--ink)">Los clientes existentes dejan de procesar la respuesta al no encontrar el atributo <code>hora</code> esperado en el contrato anterior.</p>';};
+$('ver-bien').onclick=()=>{$('ver-txt').innerHTML='<p style="margin:0" class="rest"><b>Evolución controlada vía URI (/v2).</b></p><p class="small" style="margin:4px 0 0;color:var(--ink)">Los clientes heredados mantienen consumo sobre <code>/v1/citas</code> mientras las nuevas aplicaciones integran los cambios expuestos en <code>/v2/citas</code>.</p>';};
 
 /* 15. Sobre */
 const sobre={
- env:['Envelope','Es el elemento raíz: identifica el documento XML como un mensaje SOAP. Todo lo demás vive dentro de él.',`<span class="soap">&lt;env:Envelope</span>
+ env:['Envelope (Sobre)','Elemento raíz que encapsula la estructura completa del documento XML SOAP.',`<span class="soap">&lt;env:Envelope</span>
   xmlns:env="http://www.w3.org/2003/05/soap-envelope"
   xmlns:ay="urn:agendaya:citas"<span class="soap">&gt;</span>
   &lt;env:Header&gt;…&lt;/env:Header&gt;
   &lt;env:Body&gt;…&lt;/env:Body&gt;
 <span class="soap">&lt;/env:Envelope&gt;</span>`],
- head:['Header','Es opcional. Lleva información que no es la operación en sí: credenciales de WS-Security, identificadores de trazabilidad o de transacción.',`&lt;env:Envelope …&gt;
+ head:['Header (Cabecera)','Sección opcional para metadatos de control: credenciales WS-Security, tokens y contexto transaccional.',`&lt;env:Envelope …&gt;
   <span class="soap">&lt;env:Header&gt;
     &lt;wsse:Security&gt;
       &lt;wsse:UsernameToken&gt;…&lt;/wsse:UsernameToken&gt;
@@ -871,7 +932,7 @@ const sobre={
   &lt;/env:Header&gt;</span>
   &lt;env:Body&gt;…&lt;/env:Body&gt;
 &lt;/env:Envelope&gt;`],
- body:['Body','Es obligatorio. Contiene la operación que se invoca con sus parámetros, o la respuesta.',`&lt;env:Envelope …&gt;
+ body:['Body (Cuerpo)','Elemento obligatorio que contiene los datos de la operación invocado o la respuesta emitida.',`&lt;env:Envelope …&gt;
   &lt;env:Header&gt;…&lt;/env:Header&gt;
   <span class="soap">&lt;env:Body&gt;
     &lt;ay:ConsultarCita&gt;
@@ -879,11 +940,11 @@ const sobre={
     &lt;/ay:ConsultarCita&gt;
   &lt;/env:Body&gt;</span>
 &lt;/env:Envelope&gt;`],
- fault:['Fault','Es opcional y va dentro del Body. Informa el error con un código y una explicación. Es el equivalente de los códigos 4xx y 5xx de REST.',`&lt;env:Body&gt;
+ fault:['Fault (Tratamiento de Errores)','Elemento opcional dentro del Body para el retorno de errores de protocolo o aplicación.',`&lt;env:Body&gt;
   <span class="err">&lt;env:Fault&gt;
     &lt;env:Code&gt;&lt;env:Value&gt;env:Sender&lt;/env:Value&gt;&lt;/env:Code&gt;
     &lt;env:Reason&gt;
-      &lt;env:Text xml:lang="es"&gt;La cita 999 no existe&lt;/env:Text&gt;
+      &lt;env:Text xml:lang="es"&gt;El identificador especificado no existe&lt;/env:Text&gt;
     &lt;/env:Reason&gt;
   &lt;/env:Fault&gt;</span>
 &lt;/env:Body&gt;`]};
@@ -893,7 +954,7 @@ drawSobre('env');
 
 /* 16. WSDL */
 const wsdl={
- types:['Define los tipos de datos con XML Schema: qué es una cita y qué campos tiene.',`<span class="soap">&lt;types&gt;</span>
+ types:['types: Definición de esquemas de datos mediante XSD.',`<span class="soap">&lt;types&gt;</span>
   &lt;xs:schema targetNamespace="urn:agendaya:citas"&gt;
     &lt;xs:element name="Cita"&gt;
       &lt;xs:complexType&gt;&lt;xs:sequence&gt;
@@ -904,30 +965,27 @@ const wsdl={
     &lt;/xs:element&gt;
   &lt;/xs:schema&gt;
 <span class="soap">&lt;/types&gt;</span>`],
- message:['Define los mensajes de entrada y de salida que se intercambian.',`<span class="soap">&lt;message name="ConsultarCitaEntrada"&gt;</span>
+ message:['message: Especificación de mensajes de entrada y salida.',`<span class="soap">&lt;message name="ConsultarCitaEntrada"&gt;</span>
   &lt;part name="idCita" type="xs:int"/&gt;
 <span class="soap">&lt;/message&gt;</span>
 <span class="soap">&lt;message name="ConsultarCitaSalida"&gt;</span>
   &lt;part name="cita" element="ay:Cita"/&gt;
 <span class="soap">&lt;/message&gt;</span>`],
- portType:['Agrupa las operaciones disponibles, cada una con su mensaje de entrada y de salida. Es la "lista de métodos" del servicio.',`<span class="soap">&lt;portType name="CitasPortType"&gt;</span>
+ portType:['portType: Definición de la interfaz de operaciones soportadas.',`<span class="soap">&lt;portType name="CitasPortType"&gt;</span>
   &lt;operation name="ConsultarCita"&gt;
     &lt;input  message="ay:ConsultarCitaEntrada"/&gt;
     &lt;output message="ay:ConsultarCitaSalida"/&gt;
   &lt;/operation&gt;
-  &lt;operation name="CrearCita"&gt;…&lt;/operation&gt;
 <span class="soap">&lt;/portType&gt;</span>`],
- binding:['Dice cómo viajan los mensajes: con qué versión de SOAP, sobre qué transporte y con qué estilo.',`<span class="soap">&lt;binding name="CitasBinding" type="ay:CitasPortType"&gt;</span>
-  &lt;soap12:binding style="document"
-     transport="http://schemas.xmlsoap.org/soap/http"/&gt;
+ binding:['binding: Especificación de protocolo de transporte y estilo de codificación.',`<span class="soap">&lt;binding name="CitasBinding" type="ay:CitasPortType"&gt;</span>
+  &lt;soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/&gt;
   &lt;operation name="ConsultarCita"&gt;
     &lt;soap12:operation soapAction="urn:ConsultarCita"/&gt;
   &lt;/operation&gt;
 <span class="soap">&lt;/binding&gt;</span>`],
- service:['Indica la dirección concreta donde está publicado el servicio: su endpoint.',`<span class="soap">&lt;service name="ServicioCitas"&gt;</span>
+ service:['service: Dirección de red (Endpoint URI) del servicio web.',`<span class="soap">&lt;service name="ServicioCitas"&gt;</span>
   &lt;port name="CitasPort" binding="ay:CitasBinding"&gt;
-    &lt;soap12:address
-      location="https://ws.agendaya.co/citas"/&gt;
+    &lt;soap12:address location="https://ws.agendaya.co/citas"/&gt;
   &lt;/port&gt;
 <span class="soap">&lt;/service&gt;</span>`]};
 document.querySelectorAll('#wsdl-list button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#wsdl-list button').forEach(x=>x.classList.toggle('on',x===b));$('wsdl-txt').textContent=wsdl[b.dataset.w][0];$('wsdl-code').innerHTML=wsdl[b.dataset.w][1];});
@@ -942,7 +1000,7 @@ function wsReq(pass,token){return `&lt;env:Envelope xmlns:env="http://www.w3.org
         &lt;wsse:Password Type="…#PasswordText"&gt;${pass}&lt;/wsse:Password&gt;
       &lt;/wsse:UsernameToken&gt;
     &lt;/wsse:Security&gt;`:`
-    <span class="err">(sin elemento Security)</span>`}
+    <span class="err">(Cabecera Security Ausente)</span>`}
   <span class="soap">&lt;/env:Header&gt;</span>
   &lt;env:Body&gt;
     &lt;ay:RecibirFactura&gt;…&lt;/ay:RecibirFactura&gt;
@@ -955,8 +1013,8 @@ Content-Type: application/soap+xml
 &lt;env:Envelope …&gt;
   &lt;env:Body&gt;
     &lt;ay:RecibirFacturaRespuesta&gt;
-      &lt;ay:estado&gt;RECIBIDA&lt;/ay:estado&gt;
-      &lt;ay:radicado&gt;F-2026-000918&lt;/ay:radicado&gt;
+      &lt;ay:estado&gt;PROCESADO&lt;/ay:estado&gt;
+      &lt;ay:radicado&gt;FAC-2026-000918&lt;/ay:radicado&gt;
     &lt;/ay:RecibirFacturaRespuesta&gt;
   &lt;/env:Body&gt;
 &lt;/env:Envelope&gt;`,
@@ -966,11 +1024,9 @@ Content-Type: application/soap+xml
 &lt;env:Body&gt;
   <span class="err">&lt;env:Fault&gt;</span>
     &lt;env:Code&gt;&lt;env:Value&gt;env:Sender&lt;/env:Value&gt;
-      &lt;env:Subcode&gt;
-        &lt;env:Value&gt;wsse:FailedAuthentication&lt;/env:Value&gt;
-      &lt;/env:Subcode&gt;&lt;/env:Code&gt;
-    &lt;env:Reason&gt;&lt;env:Text xml:lang="es"&gt;
-      Usuario o contraseña inválidos&lt;/env:Text&gt;&lt;/env:Reason&gt;
+      &lt;env:Subcode&gt;&lt;env:Value&gt;wsse:FailedAuthentication&lt;/env:Value&gt;&lt;/env:Subcode&gt;
+    &lt;/env:Code&gt;
+    &lt;env:Reason&gt;&lt;env:Text xml:lang="es"&gt;Autenticación fallida: Credenciales no válidas&lt;/env:Text&gt;&lt;/env:Reason&gt;
   <span class="err">&lt;/env:Fault&gt;</span>
 &lt;/env:Body&gt;`,
  none:`<span class="err">HTTP/1.1 500 Internal Server Error</span>
@@ -979,40 +1035,37 @@ Content-Type: application/soap+xml
 &lt;env:Body&gt;
   <span class="err">&lt;env:Fault&gt;</span>
     &lt;env:Code&gt;&lt;env:Value&gt;env:Sender&lt;/env:Value&gt;
-      &lt;env:Subcode&gt;
-        &lt;env:Value&gt;wsse:InvalidSecurity&lt;/env:Value&gt;
-      &lt;/env:Subcode&gt;&lt;/env:Code&gt;
-    &lt;env:Reason&gt;&lt;env:Text xml:lang="es"&gt;
-      Falta la cabecera de seguridad&lt;/env:Text&gt;&lt;/env:Reason&gt;
+      &lt;env:Subcode&gt;&lt;env:Value&gt;wsse:InvalidSecurity&lt;/env:Value&gt;&lt;/env:Subcode&gt;
+    &lt;/env:Code&gt;
+    &lt;env:Reason&gt;&lt;env:Text xml:lang="es"&gt;Encabezado WS-Security requerido no suministrado&lt;/env:Text&gt;&lt;/env:Reason&gt;
   <span class="err">&lt;/env:Fault&gt;</span>
 &lt;/env:Body&gt;`};
-function ws(k){$('ws-req').innerHTML=wsReq(k==='bad'?'clave-equivocada':'••••••••',k!=='none');$('ws-res').innerHTML=wsRes[k];['ok','bad','none'].forEach(x=>$('ws-'+x).classList.toggle('on',x===k));}
-$('ws-ok').onclick=()=>ws('ok');$('ws-bad').onclick=()=>ws('bad');$('ws-none').onclick=()=>ws('none');ws('ok');
+function ws(k){$('ws-req').innerHTML=wsReq(k==='bad'?'clave_incorrecta':'••••••••',k!=='none');$('ws-res').innerHTML=wsRes[k];['ok','bad','none'].forEach(x=>$('ws-'+x).classList.toggle('on',x===k));}$('ws-ok').onclick=()=>ws('ok');$('ws-bad').onclick=()=>ws('bad');$('ws-none').onclick=()=>ws('none');ws('ok');
 
 /* 20. Decisión */
 const arbol={
- q1:['¿El sistema con el que te vas a integrar ya publica un contrato WSDL o exige SOAP?',['Sí','r_soap1'],['No','q2']],
- q2:['¿Necesitas seguridad dentro del propio mensaje, como firma o credenciales en el sobre, más allá del canal HTTPS?',['Sí','r_soap2'],['No','q3']],
- q3:['¿Quien consume es una app web o móvil que necesita respuestas livianas y rápidas?',['Sí','r_rest1'],['No','q4']],
- q4:['¿La API será pública o la usarán muchos desarrolladores externos?',['Sí','r_rest2'],['No','r_rest3']],
- r_soap1:['SOAP','No hay mucho que decidir: el contrato lo define la contraparte. Así ocurre con la DIAN y en el caso de la ARL.','soap'],
- r_soap2:['SOAP','WS-Security protege el mensaje aunque pase por intermediarios. Es la razón por la que banca y salud lo mantienen.','soap'],
- r_rest1:['REST','JSON liviano, caché y métodos HTTP estándar. Es el caso de la app de AgendaYa.','rest'],
- r_rest2:['REST con OpenAPI','La simplicidad de REST baja la barrera de entrada, y un contrato OpenAPI evita ambigüedades.','rest'],
- r_rest3:['REST, por simplicidad','Sin una exigencia que justifique el peso de SOAP, REST suele ser la opción más sencilla de construir y mantener. Aun así, documenta el porqué de la decisión.','rest']};
+ q1:['¿El sistema destino especifica un contrato WSDL previo o exige cumplimiento del protocolo SOAP?',['Sí','r_soap1'],['No','q2']],
+ q2:['¿Se requiere garantizar seguridad a nivel de mensaje (WS-Security / Firmas digitales) de forma independiente del canal?',['Sí','r_soap2'],['No','q3']],
+ q3:['¿El consumidor principal es un cliente Web o Móvil que requiere payloads livianos (JSON) y alta performance?',['Sí','r_rest1'],['No','q4']],
+ q4:['¿La API está destinada a exposición pública o consumo por múltiples terceros?',['Sí','r_rest2'],['No','r_rest3']],
+ r_soap1:['Selección: SOAP','La integración viene determinada por el contrato WSDL expuesto por el proveedor (Ej. Integración DIAN / ARL).','soap'],
+ r_soap2:['Selección: SOAP','WS-Security permite encriptar y firmar secciones del payload XML, garantizando no repudiabilidad en entornos multinodo.','soap'],
+ r_soap3:['Selección: REST','Uso de JSON, verbos HTTP estándar y mecanismos de caché. Arquitectura idónea para la aplicación móvil AgendaYa.','rest'],
+ r_rest1:['Selección: REST','Maximiza el rendimiento y minimiza el consumo de ancho de banda mediante serialización JSON.','rest'],
+ r_rest2:['Selección: REST + OpenAPI','La simplicidad de REST complementada con OpenAPI simplifica el consumo por desarrolladores externos.','rest'],
+ r_rest3:['Selección: REST','Salvo requerimientos específicos de transaccionalidad WS-*, REST constituye la opción estándar por eficiencia y mantenibilidad.','rest']};
 function dec(k){const d=arbol[k],box=$('dec-box');
-  if(k.startsWith('r_')){box.className='box '+(d[2]==='soap'?'soapb':'restb');box.innerHTML=`<p class="small" style="margin:0 0 4px">Recomendación</p><h3 class="${d[2]}" style="font-size:30px">${d[0]}</h3><p style="margin:0">${d[1]}</p>`;return;}
-  box.className='box';box.innerHTML=`<p class="small" style="margin:0 0 6px">Pregunta</p><p style="font-size:22px;font-family:var(--serif)">${d[0]}</p><div class="row" style="gap:10px;margin-top:14px"><button data-n="${d[1][1]}">${d[1][0]}</button><button data-n="${d[2][1]}">${d[2][0]}</button></div>`;
+  if(k.startsWith('r_')){box.className='box '+(d[2]==='soap'?'soapb':'restb');box.innerHTML=`<p class="small" style="margin:0 0 4px">Recomendación Arquitectónica</p><h3 class="${d[2]}" style="font-size:26px">${d[0]}</h3><p style="margin:0">${d[1]}</p>`;return;}
+  box.className='box';box.innerHTML=`<p class="small" style="margin:0 0 6px">Evaluación de Requerimientos</p><p style="font-size:20px;font-family:var(--serif)">${d[0]}</p><div class="row" style="gap:10px;margin-top:14px"><button data-n="${d[1][1]}">${d[1][0]}</button><button data-n="${d[2][1]}">${d[2][0]}</button></div>`;
   box.querySelectorAll('button').forEach(b=>b.onclick=()=>dec(b.dataset.n));}
 $('dec-reset').onclick=()=>dec('q1');dec('q1');
 
 /* 21. Latencia */
 function lat(){const v=+$('lat').value;$('lat-val').textContent=(v/1000).toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})+' s';
-  let t;if(v<=1000) t='La usuaria siente que la app responde sin interrumpir lo que estaba haciendo.';
-  else if(v<=3000) t='Nota la espera. Sin un indicador de progreso, empieza a dudar de si la reserva funcionó.';
-  else if(v<10000) t='<span class="err">La espera se vuelve un problema:</span> puede tocar dos veces (y un POST repetido crea dos citas) o abandonar la app.';
-  $('lat-txt').innerHTML=t;}
-$('lat').oninput=lat;lat();
+  let t;if(v<=1000) t='Respuesta inmediata: Mantiene el flujo de interacción continuo según los criterios de usabilidad de Nielsen (1993).';
+  else if(v<=3000) t='Latencia perceptible: Requiere indicadores visuales de carga (Spinners) para evitar la duplicación de peticiones por el usuario.';
+  else if(v<10000) t='<span class="err">Latencia crítica:</span> Incrementa la tasa de abandono de la aplicación y el riesgo de reintentos no idempotentes.';
+  $('lat-txt').innerHTML=t;}$('lat').oninput=lat;lat();
 })();
 </script>
 </body>
