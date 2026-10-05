@@ -96,7 +96,8 @@ pre.code .lens::before{content:"⚠ ";font-style:normal}
 #progress span i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0);transition:transform .3s}
 #index{position:fixed;inset:0;background:rgba(20,26,36,.94);z-index:20;display:none;overflow:auto;padding:40px}
 #index.open{display:block}
-#index ol{max-width:900px;margin:0 auto;columns:2;column-gap:40px;color:#fff;font-size:17px}
+#index ul{max-width:900px;margin:0 auto;columns:2;column-gap:40px;color:#fff;font-size:17px;list-style:none;padding:0}
+#index .num{display:inline-block;width:30px;color:#9aa7b8}
 #index li{margin:0 0 8px;break-inside:avoid}
 #index a{color:#fff;text-decoration:none} #index a:hover{text-decoration:underline}
 #index h2{color:#fff;text-align:center;font-size:30px}
@@ -583,7 +584,7 @@ paths:
     <div class="box soapb"><h3><span class="ic" data-icon="server" style="color:var(--soap)"></span>La ARL como proveedor</h3><p style="margin:0">Publica el servicio y su WSDL para un único consumidor, un operador que recibe las facturas de los prestadores de salud y se las envía a la ARL en el formato que necesita. Cada petición debe traer usuario y contraseña válidos en el Header.</p></div>
     <div class="box soapb"><h3><span class="ic" data-icon="send" style="color:var(--soap)"></span>La ARL como consumidor</h3><p style="margin:0">Usa el WSDL que publica otro sistema para enviarle los pagos de las prestaciones, autenticándose con las credenciales que ese sistema le asignó.</p></div>
   </div>
-  <p class="cite">Experiencia profesional de la autora. Descripción genérica que omite entidades, direcciones y estructuras reales de los mensajes. Roles de proveedor y consumidor según Singh et al. (2018, p. 208).</p>
+  <p class="cite">Descripción genérica que omite entidades, direcciones y estructuras reales de los mensajes. Roles de proveedor y consumidor según Singh et al. (2018, p. 208).</p>
 </section>
 
 <!-- 19 COMPARACIÓN -->
@@ -594,7 +595,6 @@ paths:
     <div style="background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">frente a</div>
     <div style="background:var(--rest);color:#fff;border-radius:0 8px 0 0;padding:10px 16px;display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:22px;font-weight:700"><span data-icon="repeat"></span>REST</div>
   </div>
-  <p class="hint" style="margin-top:10px"><span data-icon="pointer"></span>Pasa el cursor por una fila para comparar un criterio a la vez.</p>
   <p class="cite">Singh et al. (2018, pp. 208-209), W3C (2001, 2007), OASIS (2006) y Fielding (2000).</p>
 </section>
 
@@ -691,7 +691,7 @@ paths:
   <button id="next" aria-label="Diapositiva siguiente">Siguiente</button>
   <button id="idx-btn">Índice</button>
 </nav>
-<div id="index" class="noprint" role="dialog" aria-label="Índice de diapositivas"><h2>Índice</h2><ol id="index-list"></ol></div>
+<div id="index" class="noprint" role="dialog" aria-label="Índice de diapositivas"><h2>Índice</h2><ul id="index-list"></ul></div>
 <script>
 (function(){
 /* ---------- Íconos ---------- */
@@ -753,10 +753,10 @@ slides.forEach((s,i)=>{if(i===0) return;const b=+s.dataset.block;const tb=docume
 const prog=document.getElementById('progress');
 for(let b=1;b<=7;b++){const sp=document.createElement('span');sp.dataset.b=b;sp.innerHTML='<i></i>';prog.appendChild(sp);}
 const list=document.getElementById('index-list');
-slides.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<a href="#${i}">${i===0?'Portada':(i===total-1?'Referencias':i+'. '+s.dataset.title)}</a>`;list.appendChild(li);});
+slides.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<a href="#${i}">${(i===0||i===total-1)?'<span class="num"></span>':`<span class="num">${i}</span>`}${i===0?'Portada':(i===total-1?'Referencias':s.dataset.title)}</a>`;list.appendChild(li);});
 let cur=0;
 function show(n){cur=Math.max(0,Math.min(total-1,n));slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
-  document.getElementById('count').textContent=`${cur+1} / ${total}`;const b=+slides[cur].dataset.block;
+  document.getElementById('count').textContent=cur===0?'Portada':(cur===total-1?'Referencias':`${cur} / ${total-2}`);const b=+slides[cur].dataset.block;
   [...prog.children].forEach(sp=>{const sb=+sp.dataset.b;let f=0;if(sb<b) f=1; else if(sb===b){const inb=slides.filter(s=>+s.dataset.block===sb);f=(inb.indexOf(slides[cur])+1)/inb.length;}sp.firstChild.style.transform=`scaleX(${f})`;});
   if(location.hash!=='#'+cur) history.replaceState(null,'','#'+cur);}
 function fit(){const st=document.getElementById('stage');const s=Math.min(innerWidth/1280,(innerHeight-56)/720);st.style.transform=`scale(${s})`;}
