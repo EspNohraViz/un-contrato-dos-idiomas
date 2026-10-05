@@ -497,7 +497,7 @@ paths:
     <div class="box soapb" style="padding:22px 24px">
       <h3 style="font-size:24px"><span class="ic" data-icon="flag" style="color:var(--soap)"></span>Ejemplo real en Colombia</h3>
       <p>La factura electrónica con validación previa de la DIAN se envía a un servicio web SOAP 1.2, autenticado con WS-Security en su perfil UsernameToken.</p>
-      <p style="margin-bottom:8px">Su contrato define operaciones como estas.</p>
+      <p style="margin-bottom:6px">Su contrato define operaciones como estas.</p>
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="display:flex;gap:12px;align-items:center"><span class="chip" style="margin:0;color:#DCDCAA">SendBillSync</span><span style="font-size:17px">enviar la factura</span></div>
         <div style="display:flex;gap:12px;align-items:center"><span class="chip" style="margin:0;color:#DCDCAA">GetStatus</span><span style="font-size:17px">consultar su estado</span></div>
@@ -532,7 +532,7 @@ paths:
   <p class="lead" style="margin-bottom:12px;max-width:none">El WSDL es un documento XML que describe el servicio completo. Con él, un consumidor puede generar su cliente automáticamente, por ejemplo con JAX-WS en Java.</p>
   <div style="display:grid;grid-template-columns:380px 1fr;gap:26px">
     <div>
-      <div class="hint" style="margin-bottom:8px"><span data-icon="pointer"></span>Haz clic en cada parte para ver su código.</div>
+      <div class="hint" style="margin-bottom:6px"><span data-icon="pointer"></span>Haz clic en cada parte para ver su código.</div>
       <div id="wsdl-list" style="display:flex;flex-direction:column;gap:7px">
         <button data-w="types" class="on" style="text-align:left;display:flex;flex-direction:column;gap:1px"><code style="font-size:15px">types</code><span style="font-weight:400;font-size:15px">¿Qué tipos de datos hay?</span></button>
         <button data-w="message" style="text-align:left;display:flex;flex-direction:column;gap:1px"><code style="font-size:15px">message</code><span style="font-weight:400;font-size:15px">¿Qué entra y qué sale?</span></button>
@@ -603,7 +603,7 @@ paths:
   <h2>¿Cuál elegir? Depende de la pregunta</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
     <div>
-      <div class="hint" style="margin-bottom:8px"><span data-icon="pointer"></span>Responde las preguntas para llegar a una recomendación.</div>
+      <div class="hint" style="margin-bottom:6px"><span data-icon="pointer"></span>Responde las preguntas para llegar a una recomendación.</div>
       <div id="dec-box" class="box fade" style="min-height:240px"></div>
       <button id="dec-reset" style="margin-top:10px">Empezar de nuevo</button>
     </div>
@@ -663,23 +663,25 @@ paths:
 
 <!-- REFERENCIAS -->
 <section class="slide" data-block="8" data-title="Referencias">
-  <h2>Referencias</h2>
-  <div style="columns:2;column-gap:34px;font-size:12.8px;line-height:1.38">
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Dirección de Impuestos y Aduanas Nacionales [DIAN]. (2018). <i>Anexo técnico 5: Servicio de recepción de facturas electrónicas</i>. https://cdn.actualicese.com/normatividad/2018/Resoluciones/Anexo-5-R000001-18.pdf</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Dirección de Impuestos y Aduanas Nacionales [DIAN]. (2021). <i>Anexo técnico de documento soporte, versión 1.0</i> (Resolución 000012). https://cdn.actualicese.com/normatividad/2020/Resoluciones/Anexo-tecnico-1.0-para-documeto-soporte-compras-no-obligados-facturar.pdf</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Dusseault, L. y Snell, J. (2010). <i>PATCH method for HTTP</i> (RFC 5789). Internet Engineering Task Force. https://doi.org/10.17487/RFC5789</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Fielding, R. T. (2000). <i>Architectural styles and the design of network-based software architectures</i> [Tesis doctoral, University of California, Irvine]. https://ics.uci.edu/~fielding/pubs/dissertation/top.htm</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Fielding, R., Nottingham, M. y Reschke, J. (Eds.). (2022). <i>HTTP semantics</i> (RFC 9110). Internet Engineering Task Force. https://doi.org/10.17487/RFC9110</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Martínez López, F. J. y Gallegos Ruiz, A. (2017). <i>Programación de bases de datos relacionales</i>. RA-MA Editorial. https://elibro.net/es/ereader/uniminuto/106525</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Nielsen, J. (1993). <i>Usability engineering</i>. Academic Press.</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">OASIS. (2006). <i>Web services security: UsernameToken profile 1.1</i>. https://docs.oasis-open.org/wss/v1.1/wss-v1.1-spec-os-UsernameTokenProfile.pdf</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">OpenAPI Initiative. (2021). <i>OpenAPI specification v3.1.0</i>. https://spec.openapis.org/oas/v3.1.0</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">OWASP Foundation. (s. f.). <i>Input validation cheat sheet</i>. https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Singh, K., Ianculescu, A. y Torje, L.-P. (2018). <i>Design patterns and best practices in Java</i>. Packt Publishing. http://ebookcentral.proquest.com/lib/bibliouniminuto-ebooks/detail.action?docID=5439461</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Tovar Monge, R. (2018). <i>Posicionamiento web para todos</i> (2.ª ed.). RA-MA Editorial. https://elibro.net/es/ereader/uniminuto/106510</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">Vizcaíno Florez, N. M. (2026). <i>Esquema de componentes utilizados para el desarrollo de una aplicación móvil</i> [Trabajo de curso no publicado]. Corporación Universitaria Minuto de Dios.</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">World Wide Web Consortium [W3C]. (2001). <i>Web services description language (WSDL) 1.1</i>. https://www.w3.org/TR/wsdl</p>
-    <p style="font-size:12.8px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:8px">World Wide Web Consortium [W3C]. (2007). <i>SOAP version 1.2 part 1: Messaging framework</i> (2.ª ed.). https://www.w3.org/TR/soap12-part1/</p>
+  <h2 style="margin-bottom:6px">Referencias</h2>
+  <p class="small" style="font-size:14px;margin:0 0 12px">Presentación elaborada con apoyo de Claude (Anthropic, 2026) en la redacción de borradores y la programación. Las decisiones de contenido son de la autora.</p>
+  <div style="columns:2;column-gap:34px;font-size:12.4px;line-height:1.38">
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Anthropic. (2026). <i>Claude</i> (versión Opus 5.5) [Modelo de lenguaje de gran tamaño]. https://claude.ai</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Dirección de Impuestos y Aduanas Nacionales [DIAN]. (2018). <i>Anexo técnico 5: Servicio de recepción de facturas electrónicas</i>. https://cdn.actualicese.com/normatividad/2018/Resoluciones/Anexo-5-R000001-18.pdf</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Dirección de Impuestos y Aduanas Nacionales [DIAN]. (2021). <i>Anexo técnico de documento soporte, versión 1.0</i> (Resolución 000012). https://cdn.actualicese.com/normatividad/2020/Resoluciones/Anexo-tecnico-1.0-para-documeto-soporte-compras-no-obligados-facturar.pdf</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Dusseault, L. y Snell, J. (2010). <i>PATCH method for HTTP</i> (RFC 5789). Internet Engineering Task Force. https://doi.org/10.17487/RFC5789</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Fielding, R. T. (2000). <i>Architectural styles and the design of network-based software architectures</i> [Tesis doctoral, University of California, Irvine]. https://ics.uci.edu/~fielding/pubs/dissertation/top.htm</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Fielding, R., Nottingham, M. y Reschke, J. (Eds.). (2022). <i>HTTP semantics</i> (RFC 9110). Internet Engineering Task Force. https://doi.org/10.17487/RFC9110</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Martínez López, F. J. y Gallegos Ruiz, A. (2017). <i>Programación de bases de datos relacionales</i>. RA-MA Editorial. https://elibro.net/es/ereader/uniminuto/106525</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Nielsen, J. (1993). <i>Usability engineering</i>. Academic Press.</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">OASIS. (2006). <i>Web services security: UsernameToken profile 1.1</i>. https://docs.oasis-open.org/wss/v1.1/wss-v1.1-spec-os-UsernameTokenProfile.pdf</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">OpenAPI Initiative. (2021). <i>OpenAPI specification v3.1.0</i>. https://spec.openapis.org/oas/v3.1.0</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">OWASP Foundation. (s. f.). <i>Input validation cheat sheet</i>. https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Singh, K., Ianculescu, A. y Torje, L.-P. (2018). <i>Design patterns and best practices in Java</i>. Packt Publishing. http://ebookcentral.proquest.com/lib/bibliouniminuto-ebooks/detail.action?docID=5439461</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Tovar Monge, R. (2018). <i>Posicionamiento web para todos</i> (2.ª ed.). RA-MA Editorial. https://elibro.net/es/ereader/uniminuto/106510</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">Vizcaíno Florez, N. M. (2026). <i>Esquema de componentes utilizados para el desarrollo de una aplicación móvil</i> [Trabajo de curso no publicado]. Corporación Universitaria Minuto de Dios.</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">World Wide Web Consortium [W3C]. (2001). <i>Web services description language (WSDL) 1.1</i>. https://www.w3.org/TR/wsdl</p>
+    <p style="font-size:12.4px;padding-left:22px;text-indent:-22px;break-inside:avoid;margin-bottom:6px">World Wide Web Consortium [W3C]. (2007). <i>SOAP version 1.2 part 1: Messaging framework</i> (2.ª ed.). https://www.w3.org/TR/soap12-part1/</p>
   </div>
 </section>
 
